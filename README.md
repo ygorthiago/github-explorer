@@ -17,7 +17,7 @@ An application to explore repositories, made consuming the GitHub's API. This pr
  - Styled Components
  - Axios
 
-## 🎲 Rodando o projeto
+## 🎲 Running project
 
 - ### Clone or download this repositoy. If you want to clone:
   ```bash
