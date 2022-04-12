@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from 'react-icons/fi';
-import { BsGithub } from 'react-icons/bs';
 import api from "../../services/api";
 import { ClearList, HomeContainer, HomeTitle, Repositories, SearchError, SearchRepoForm } from "./styles";
 
@@ -85,10 +84,6 @@ export function Home() {
   
   return (
     <HomeContainer>
-      <header>
-        <BsGithub /> github_explorer
-      </header>
-
       <HomeTitle>Explore GitHub Repositories</HomeTitle>
       <SearchRepoForm hasError={false} onSubmit={handleAddRepository}>
         <input
