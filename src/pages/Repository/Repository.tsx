@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { BiGitPullRequest } from 'react-icons/bi';
+import { VscIssues } from 'react-icons/vsc';
 import api from '../../services/api';
 
 import { Header, RepositoryInfo, Issues } from './styles';
 
-interface RepositoryParams {
-  repository: string;
-}
-
 interface Repository {
   full_name: string;
+  html_url: string;
   description: string;
   stargazers_count: number;
   forks_count: number;
@@ -26,6 +25,7 @@ interface Issue {
   id: number;
   title: string;
   html_url: string;
+  pull_request: Object;
   user: {
     login: string;
   };
@@ -44,7 +44,13 @@ export function Repository() {
       setRepository(response.data);
     });
 
-    api.get(`/repos/${pathName}/issues`).then(response => {
+    api.get(`/repos/${pathName}/issues`, {
+      params: {
+        page: 1,
+        per_page: 10,
+        sort: 'updated-desc'
+      }
+    }).then(response => {
       setIssues(response.data);
     });
   }, [pathName]);
@@ -66,7 +72,7 @@ export function Repository() {
               alt={repository.owner.login}
             />
             <div>
-              <strong>{repository.full_name}</strong>
+              <a href={repository.html_url} target="_blank">{repository.full_name}</a>
               <p>{repository.description}</p>
             </div>
           </header>
@@ -81,7 +87,7 @@ export function Repository() {
             </li>
             <li>
               <strong>{repository.open_issues_count}</strong>
-              <span>Issues open</span>
+              <span>Issues/PRs open</span>
             </li>
             <li>
               <strong>{repository.watchers_count}</strong>
@@ -91,9 +97,12 @@ export function Repository() {
         </RepositoryInfo>
       )}
 
+      {!!issues.length && (
       <Issues>
+        <h2>Trending open issues/pull requests</h2>
         {issues.map(issue => (
           <a key={issue.id} href={issue.html_url} target="_blank">
+            {issue.pull_request ? <BiGitPullRequest /> : <VscIssues />}
             <div>
               <strong>{issue.title}</strong>
               <p>{issue.user.login}</p>
@@ -102,6 +111,7 @@ export function Repository() {
           </a>
         ))}
       </Issues>
+      )}
     </>
   );
 };

@@ -35,18 +35,24 @@ export const RepositoryInfo = styled.section`
   img {
     width: 80px;
     height: 80px;
-    /* width: 120px;
-    height: 120px; */
     border-radius: 50%;
   }
 
   div {
     margin-left: 24px;
 
-    strong {
+    a {
       font-size: 1.5rem;
       max-width: 200px;
       color: ${Theme.colors.primaryDarkGray};
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.2s;
+
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.9;
+      }
     }
 
     p {
@@ -66,6 +72,7 @@ export const RepositoryInfo = styled.section`
 
   li {
     width: 100px;
+    
     strong {
       display: block;
       font-size: 2.25rem;
@@ -86,7 +93,7 @@ export const RepositoryInfo = styled.section`
     }
 
     div {
-      strong {
+      a {
         font-size: 2.25rem;
       }
     }
@@ -94,7 +101,13 @@ export const RepositoryInfo = styled.section`
 `;
 
 export const Issues = styled.div`
-  margin-top: 80px;
+  margin-top: 40px;
+
+  h2 {
+    font-size: 1.5rem;
+    color: ${Theme.colors.primaryDarkGray};
+    margin-bottom: 20px;
+  }
 
   a {
     background: ${Theme.colors.primaryWhite};
@@ -135,6 +148,7 @@ export const Issues = styled.div`
     svg {
       margin-left: auto;
       color: ${Theme.colors.primaryLightGray};
+      font-size: 36px;
     }
   }
 `;
