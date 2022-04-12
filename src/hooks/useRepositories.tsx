@@ -39,7 +39,7 @@ interface IUseRepositoriesHook {
 export function useRepositoriesHook(): IUseRepositoriesHook {
   const [repository, setRepository] = useState<Repository | null>(null);
   const [isGetRepositoryLoading, setIsGetRepositoryLoading] = useState(false);
-  const [isGetRepositoryError, setIsGetRepositoryError] = useState(true);
+  const [isGetRepositoryError, setIsGetRepositoryError] = useState(false);
 
   const [issues, setIssues] = useState<Issue[]>([]);
   const [isGetRepositoryIssuesLoading, setIsGetRepositoryIssuesLoading] = useState(false);
