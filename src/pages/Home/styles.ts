@@ -6,11 +6,16 @@ interface FormProps {
 }
 
 export const HomeContainer = styled.main`
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
 `
 
 export const HomeTitle = styled.h1`
-  font-size: 48px;
+  font-size: 3rem;
   color: ${Theme.colors.primaryDarkerGray};
   max-width: 450px;
   line-height: 56px;
@@ -19,12 +24,15 @@ export const HomeTitle = styled.h1`
 `;
 
 export const SearchRepoForm = styled.form<FormProps>`
-  margin-top: 40px;
-  max-width: 700px;
   display: flex;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 40px;
 
   input {
     flex: 1;
+    width: 100%;
+
     height: 70px;
     padding: 0 24px;
     border: 0;
@@ -45,7 +53,7 @@ export const SearchRepoForm = styled.form<FormProps>`
   }
 
   button {
-    width: 110px;
+    width: 30%;
     height: 70px;
     background: ${Theme.colors.primaryGreen};
     border-radius: 0 5px 5px 0;
@@ -56,6 +64,10 @@ export const SearchRepoForm = styled.form<FormProps>`
 
     &:hover {
       opacity: 0.8;
+    }
+
+    @media(min-width: 450px) {
+      width: 110px;
     }
   }
 `;
@@ -101,12 +113,12 @@ export const Repositories = styled.section`
       margin: 0 16px;
 
       strong {
-        font-size: 20px;
+        font-size: 1.25rem;
         color: ${Theme.colors.primaryDarkGray};
       }
 
       p {
-        font-size: 18px;
+        font-size: 1.125;
         color: ${Theme.colors.primaryGray};
         margin-top: 4px;
       }

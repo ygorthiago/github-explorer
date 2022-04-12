@@ -10,10 +10,24 @@ export default createGlobalStyle`
   }
 
   #root {
-    max-width: 960px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 40px 20px;
   }
+
+  html {
+  @media(max-width: 1080px) {
+    font-size: 93.75%;
+  }
+
+  @media(max-width: 720px) {
+    font-size: 87.5%;
+  }
+
+  @media(max-width: 300px) {
+    font-size: 67.5%;
+  }
+}
 
   body {
     background: ${Theme.colors.background};
