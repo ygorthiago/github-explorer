@@ -1,4 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+
+export interface AxiosResponseWithResponseTime extends AxiosResponse {
+  responseTime: number
+}
 
 const api = axios.create({
   baseURL: 'https://api.github.com',
