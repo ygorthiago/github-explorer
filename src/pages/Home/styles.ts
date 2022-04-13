@@ -17,10 +17,13 @@ export const HomeContainer = styled.main`
 export const HomeTitle = styled.h1`
   font-size: 3rem;
   color: ${Theme.colors.primaryDarkerGray};
-  max-width: 450px;
   line-height: 56px;
   align-self: flex-start;
   margin-top: 80px;
+
+  @media (min-width: 450px) {
+    max-width: 450px;
+  }
 `;
 
 export const SearchRepoForm = styled.form<FormProps>`
@@ -76,11 +79,12 @@ export const SearchError = styled.span`
   display: block;
   color: ${Theme.colors.primaryRed};
   margin-top: 8px;
+  align-self: flex-start;
 `;
 
 export const Repositories = styled.section`
   margin-top: 60px;
-  max-width: 700px;
+  width: 100%;
 
   a {
     background: ${Theme.colors.primaryWhite};
@@ -103,8 +107,8 @@ export const Repositories = styled.section`
     }
 
     img {
-      width: 64px;
-      height: 64px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
     }
 
@@ -127,6 +131,15 @@ export const Repositories = styled.section`
     svg {
       margin-left: auto;
       color: ${Theme.colors.primaryLightGray};
+    }
+  }
+
+  @media(min-width: 450px) {
+    a {
+      img {
+        width: 64px;
+        height: 64px;
+      }
     }
   }
 `;
