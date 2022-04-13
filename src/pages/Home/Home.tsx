@@ -70,7 +70,7 @@ export function Home() {
     }
   }
 
-  function searchAgents() {
+  function searchRepository() {
     clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
       handleAddRepository()
@@ -87,7 +87,7 @@ export function Home() {
       <HomeTitle>Explore GitHub Repositories</HomeTitle>
       <SearchRepoForm hasError={false} onSubmit={handleAddRepository}>
         <input
-          onChange={searchAgents}
+          onChange={searchRepository}
           ref={searchInputRef}
           placeholder="Repository name"
         />
@@ -105,6 +105,7 @@ export function Home() {
             <img
               src={repository.owner.avatar_url}
               alt={repository.owner.login}
+              loading="lazy"
             />
             <div>
               <strong>{repository.full_name}</strong>

@@ -37,6 +37,7 @@ export function RepositoryInfo({
             <img
               src={repository.owner.avatar_url}
               alt={repository.owner.login}
+              loading="lazy"
             />
             <div>
               <a href={repository.html_url} target="_blank">{repository.full_name}</a>
