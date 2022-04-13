@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components'
 import Theme from '../../styles/Theme';
 
-interface FormProps {
-  hasError: boolean;
-}
-
 export const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -26,7 +22,9 @@ export const HomeTitle = styled.h1`
   }
 `;
 
-export const SearchRepoForm = styled.form<FormProps>`
+export const SearchRepoForm = styled.form<{
+  hasError: boolean;
+}>`
   display: flex;
   width: 100%;
   max-width: 700px;
@@ -54,26 +52,36 @@ export const SearchRepoForm = styled.form<FormProps>`
       color: ${Theme.colors.primaryGray};
     }
   }
-
-  button {
-    width: 30%;
-    height: 70px;
-    background: ${Theme.colors.primaryGreen};
-    border-radius: 0 5px 5px 0;
-    border: 0;
-    color: ${Theme.colors.primaryWhite};
-    font-weight: bold;
-    transition: background-color 0.2s;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    @media(min-width: 450px) {
-      width: 110px;
-    }
-  }
 `;
+
+export const SearchButton = styled.button<{
+  isDisabled: boolean
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30%;
+  height: 70px;
+  background: ${Theme.colors.primaryGreen};
+  border-radius: 0 5px 5px 0;
+  border: 0;
+  color: ${Theme.colors.primaryWhite};
+  font-weight: bold;
+  transition: all 0.2s;
+
+  &:hover {
+    opacity: ${props => !props.isDisabled && 0.8};
+  }
+
+  &:disabled {
+    cursor: wait;
+  }
+
+  @media(min-width: 450px) {
+    width: 110px;
+  }
+`
 
 export const SearchError = styled.span`
   display: block;

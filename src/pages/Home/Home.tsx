@@ -1,15 +1,17 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from 'react-icons/fi';
 
 import api from "../../services/api";
 import { IRepository } from "../../types";
+import { Loader } from "../../components/Loader";
 
 import {
     ClearList,
     HomeContainer,
     HomeTitle,
     Repositories,
+    SearchButton,
     SearchError,
     SearchRepoForm
 } from "./styles";
@@ -19,6 +21,7 @@ export function Home() {
   const searchInputRef = useRef<HTMLInputElement | null>(null)
 
   const [inputError, setInputError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [repositories, setRepositories] = useState<IRepository[]>(() => {
     const storagedRepositories = localStorage.getItem(
       '@GithubExplorer:repositories',
@@ -29,13 +32,6 @@ export function Home() {
     }
     return [];
   });
-
-  useEffect(() => {
-    localStorage.setItem(
-      '@GithubExplorer:repositories',
-      JSON.stringify(repositories),
-    );
-  }, [repositories]);
 
   async function handleAddRepository(
     event?: FormEvent<HTMLFormElement>
@@ -57,10 +53,16 @@ export function Home() {
     }
 
     try {
+      setIsLoading(true)
       const response = await api.get<IRepository>(`/repos/${newRepo}`);
-      const repository = response.data;
+      const newRepositories = [response.data, ...repositories];
       
-      setRepositories([repository, ...repositories]);
+      setRepositories(newRepositories);
+
+      localStorage.setItem(
+        '@GithubExplorer:repositories',
+        JSON.stringify(newRepositories),
+      );
 
       if (searchInputRef.current) searchInputRef.current.value = ''
       setInputError('');
@@ -72,6 +74,8 @@ export function Home() {
       }
 
       setInputError('Error searching repository');
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -96,7 +100,9 @@ export function Home() {
           ref={searchInputRef}
           placeholder="Repository name"
         />
-        <button type="submit">Search</button>
+        <SearchButton type="submit" disabled={isLoading} isDisabled={isLoading}>
+          {isLoading ? <Loader /> :  'Search' }
+        </SearchButton>
       </SearchRepoForm>
       {inputError && <SearchError>{inputError}</SearchError>}
 
