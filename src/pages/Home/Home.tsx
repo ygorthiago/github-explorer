@@ -58,7 +58,6 @@ export function Home() {
 
     try {
       const response = await api.get<IRepository>(`/repos/${newRepo}`);
-
       const repository = response.data;
       
       setRepositories([repository, ...repositories]);
@@ -67,7 +66,12 @@ export function Home() {
       setInputError('');
       clearTimeout(timeOut.current);
     } catch (err) {
-      setInputError('Error searching this repository');
+      if ((err as Error).message.includes('404')) {
+        setInputError('Repository not found');
+        return
+      }
+
+      setInputError('Error searching repository');
     }
   }
 
@@ -86,7 +90,7 @@ export function Home() {
   return (
     <HomeContainer>
       <HomeTitle>Explore GitHub Repositories</HomeTitle>
-      <SearchRepoForm hasError={false} onSubmit={handleAddRepository}>
+      <SearchRepoForm hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
           onChange={searchRepository}
           ref={searchInputRef}
