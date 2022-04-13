@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import api from "../services/api";
 import { IRepositoryIssue, IRepository } from "../types";
 
-interface IUseRepositoriesHook {
+export interface IUseRepositoriesHook {
   repository: IRepository | null
   getRepository: (repositoryName: string) => void
   isGetRepositoryLoading: boolean

@@ -1,0 +1,38 @@
+import { useEffect } from 'react';
+import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
+import { useGithubExplorerContext } from '../../../contexts/useGithubExplorerContext';
+import { ToastMessage } from '../../../hooks/useToast';
+import { StyledToast } from './styles';
+
+interface ToastProps {
+  message: ToastMessage;
+  style: Record<string, unknown>;
+}
+
+function Toast({ message, style }: ToastProps): JSX.Element {
+  const { removeToast } = useGithubExplorerContext();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeToast(message.id);
+    }, 3 * 1000);
+
+    return () => clearTimeout(timer);
+  }, [removeToast, message.id]);
+
+  return (
+    <StyledToast style={style}>
+      <FiCheckCircle size={24} />
+      <div>
+        <strong>{message.title}</strong>
+        {message.description && <p>{message.description}</p>}
+      </div>
+
+      <button onClick={() => removeToast(message.id)} type="button">
+        <FiXCircle size={18} />
+      </button>
+    </StyledToast>
+  );
+}
+
+export default Toast;
