@@ -8,7 +8,8 @@ export const ToastContainer = styled.div`
   overflow: hidden;
   z-index: 1000;
 
-  @media (min-width: 600px) {
+  @media (min-width: 700px) {
     padding: 0 1.875rem;
+    right: calc((100vw - 700px) / 2);
   }
 `
