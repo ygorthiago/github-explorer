@@ -2,7 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from 'react-icons/fi';
 
-import api from "../../services/api";
+import api, { AxiosResponseWithResponseTime } from "../../services/api";
 import { IRepository } from "../../types";
 import { Loader } from "../../components/Loader";
 
@@ -15,10 +15,12 @@ import {
     SearchError,
     SearchRepoForm
 } from "./styles";
+import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
 
 export function Home() {
   const timeOut = useRef<undefined | number>();
   const searchInputRef = useRef<HTMLInputElement | null>(null)
+  const useToast = useGithubExplorerContext();
 
   const [inputError, setInputError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -54,10 +56,17 @@ export function Home() {
 
     try {
       setIsLoading(true)
-      const response = await api.get<IRepository>(`/repos/${newRepo}`);
+      const response = await api.get<IRepository, AxiosResponseWithResponseTime>(`/repos/${newRepo}`);
       const newRepositories = [response.data, ...repositories];
       
       setRepositories(newRepositories);
+
+      const { responseTime } = response
+
+      useToast.addToast({
+        title: 'Repository was found!',
+        description: `It took ${responseTime}ms`
+      });
 
       localStorage.setItem(
         '@GithubExplorer:repositories',
