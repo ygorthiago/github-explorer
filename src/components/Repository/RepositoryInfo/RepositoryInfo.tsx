@@ -1,20 +1,7 @@
+import { IRepository } from "../../../types";
 import { ErrorRetry } from "../../ErrorRetry";
 import { Loader } from "../../Loader";
 import { Wrapper, RepositoryInfoContainer } from "./styles";
-
-interface IRepository {
-  full_name: string;
-  html_url: string;
-  description: string;
-  stargazers_count: number;
-  forks_count: number;
-  open_issues_count: number;
-  watchers_count: number
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
-}
 
 interface IRepositoryInfo {
   repository: IRepository | null;

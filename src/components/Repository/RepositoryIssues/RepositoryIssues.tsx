@@ -2,20 +2,11 @@ import { BiGitPullRequest } from 'react-icons/bi';
 import { VscIssues } from 'react-icons/vsc';
 import { FiChevronRight } from 'react-icons/fi';
 
+import { IRepositoryIssue } from '../../../types';
 import { Loader } from '../../Loader';
 import { ErrorRetry } from '../../ErrorRetry';
 
 import { RepositoryIssuesContainer, Wrapper } from './styles';
-
-interface IRepositoryIssue {
-  id: number;
-  title: string;
-  html_url: string;
-  pull_request: Object;
-  user: {
-    login: string;
-  };
-}
 
 interface IRepositoryIssues {
   repositoryIssues: IRepositoryIssue[];

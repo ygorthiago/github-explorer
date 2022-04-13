@@ -1,24 +1,25 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from 'react-icons/fi';
-import api from "../../services/api";
-import { ClearList, HomeContainer, HomeTitle, Repositories, SearchError, SearchRepoForm } from "./styles";
 
-interface Repository {
-  full_name: string;
-  description: string;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
-}
+import api from "../../services/api";
+import { IRepository } from "../../types";
+
+import {
+    ClearList,
+    HomeContainer,
+    HomeTitle,
+    Repositories,
+    SearchError,
+    SearchRepoForm
+} from "./styles";
 
 export function Home() {
   const timeOut = useRef<undefined | number>();
   const searchInputRef = useRef<HTMLInputElement | null>(null)
 
   const [inputError, setInputError] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>(() => {
+  const [repositories, setRepositories] = useState<IRepository[]>(() => {
     const storagedRepositories = localStorage.getItem(
       '@GithubExplorer:repositories',
     );
@@ -56,7 +57,7 @@ export function Home() {
     }
 
     try {
-      const response = await api.get<Repository>(`/repos/${newRepo}`);
+      const response = await api.get<IRepository>(`/repos/${newRepo}`);
 
       const repository = response.data;
       
