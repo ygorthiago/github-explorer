@@ -20,7 +20,10 @@ import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContex
 export function Home() {
   const timeOut = useRef<undefined | number>();
   const searchInputRef = useRef<HTMLInputElement | null>(null)
-  const useToast = useGithubExplorerContext();
+  const {
+    addToast,
+    getRepositoryRequest
+  } = useGithubExplorerContext();
 
   const [inputError, setInputError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -56,14 +59,14 @@ export function Home() {
 
     try {
       setIsLoading(true)
-      const response = await api.get<IRepository, AxiosResponseWithResponseTime>(`/repos/${newRepo}`);
+      const response = await getRepositoryRequest(newRepo);
       const newRepositories = [response.data, ...repositories];
       
       setRepositories(newRepositories);
 
       const { responseTime } = response
 
-      useToast.addToast({
+      addToast({
         title: 'Repository was found!',
         description: `It took ${responseTime}ms`
       });
@@ -90,7 +93,8 @@ export function Home() {
 
   function searchRepository() {
     clearTimeout(timeOut.current);
-    timeOut.current = setTimeout(() => {
+
+    timeOut.current = window.setTimeout(() => {
       handleAddRepository()
     }, 1200);
   }
@@ -105,15 +109,21 @@ export function Home() {
       <HomeTitle>Explore GitHub Repositories</HomeTitle>
       <SearchRepoForm hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
+          data-testid='search-repository-input'
           onChange={searchRepository}
           ref={searchInputRef}
           placeholder="Repository name"
         />
-        <SearchButton type="submit" disabled={isLoading} isDisabled={isLoading}>
+        <SearchButton
+          data-testid='search-repository-button'
+          type="submit"
+          disabled={isLoading}
+          isDisabled={isLoading}
+        >
           {isLoading ? <Loader /> :  'Search' }
         </SearchButton>
       </SearchRepoForm>
-      {inputError && <SearchError>{inputError}</SearchError>}
+      {inputError && <SearchError data-testid='search-repository-error'>{inputError}</SearchError>}
 
       <Repositories>
         {!!repositories.length && <ClearList onClick={clearRepositoryList}>Clear list</ClearList>}
