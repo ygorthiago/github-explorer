@@ -2,7 +2,6 @@ import { FormEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from 'react-icons/fi';
 
-import api, { AxiosResponseWithResponseTime } from "../../services/api";
 import { IRepository } from "../../types";
 import { Loader } from "../../components/Loader";
 
@@ -42,12 +41,13 @@ export function Home() {
     event?: FormEvent<HTMLFormElement>
   ): Promise<void> {
     event?.preventDefault()
-    const newRepo = searchInputRef.current?.value
 
-    if (!newRepo) {
+    if (!searchInputRef.current?.value) {
       setInputError('Enter the author/repository name');
       return;
     }
+
+    const newRepo = searchInputRef.current.value
 
     const newRepoIndex = repositories.findIndex(repo => repo.full_name === newRepo)
 
@@ -76,9 +76,9 @@ export function Home() {
         JSON.stringify(newRepositories),
       );
 
-      if (searchInputRef.current) searchInputRef.current.value = ''
       setInputError('');
       clearTimeout(timeOut.current);
+      searchInputRef.current.value = ''
     } catch (err) {
       if ((err as Error).message.includes('404')) {
         setInputError('Repository not found');
@@ -125,26 +125,34 @@ export function Home() {
       </SearchRepoForm>
       {inputError && <SearchError data-testid='search-repository-error'>{inputError}</SearchError>}
 
-      <Repositories>
-        {!!repositories.length && <ClearList onClick={clearRepositoryList}>Clear list</ClearList>}
-        {repositories.map(repository => (
-          <Link
-            key={repository.full_name}
-            to={`/repository/${repository.full_name}`}
+      {!!repositories.length && (
+        <Repositories data-testid='repository-list'>
+          <ClearList
+            onClick={clearRepositoryList}
+            data-testid="clear-repository-list-button"
           >
-            <img
-              src={repository.owner.avatar_url}
-              alt={repository.owner.login}
-              loading="lazy"
-            />
-            <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
-        ))}
-      </Repositories>
+            Clearlist
+          </ClearList>
+
+          {repositories.map(repository => (
+            <Link
+              key={repository.full_name}
+              to={`/repository/${repository.full_name}`}
+            >
+              <img
+                src={repository.owner.avatar_url}
+                alt={repository.owner.login}
+                loading="lazy"
+              />
+              <div>
+                <strong>{repository.full_name}</strong>
+                <p>{repository.description}</p>
+              </div>
+              <FiChevronRight size={20} />
+            </Link>
+          ))}
+        </Repositories>
+      )}
     </HomeContainer>
     
   )

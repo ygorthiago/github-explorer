@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { Home } from '.';
@@ -14,23 +14,45 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-jest.mock('../../hooks/useToast', () => {
-  return {
-    useToast: () => ({
-      addToast: mockedAddToast,
-    })
+const initialStoragedData = [
+  {
+    full_name: 'repository/test',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
   }
-});
+];
 
 const mockedUseGithubExplorerContext = useGithubExplorerContext as jest.Mock;
 
 jest.mock('../../contexts/useGithubExplorerContext');
+jest.useFakeTimers();
 
 describe('Home Page', () => {
   beforeEach(() => {
     mockedUseGithubExplorerContext.mockReturnValue({
       getRepositoryRequest: mockedGetRepositoryRequest,
+      addToast: mockedAddToast,
     });
+
+    jest
+      .spyOn(Storage.prototype, 'getItem')
+      .mockReturnValueOnce(JSON.stringify(initialStoragedData));
+  });
+
+  it('should be able to initialize repository list with localStorage values', () => {
+    const { getByTestId } = render(<Home />);
+
+    const repositoryListAfter = getByTestId('repository-list')
+
+    expect(repositoryListAfter).toBeTruthy();
   });
 
   it('should be able to search a repository', () => {
@@ -51,10 +73,10 @@ describe('Home Page', () => {
     const searchRepositoryInput = getByTestId('search-repository-input')
 
     fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+
+    jest.runAllTimers();
     
-    setTimeout(() => {
-      expect(mockedGetRepositoryRequest).toHaveBeenCalled()
-    }, 1201);
+    expect(mockedGetRepositoryRequest).toHaveBeenCalled()
   });
 
   it('should not be able to search a repository without filling the search input', () => {
@@ -102,5 +124,22 @@ describe('Home Page', () => {
     const searchErrorMessage = getByTestId('search-repository-error')
 
     expect(searchErrorMessage).toHaveTextContent('Repository not found')
+  });
+
+  it('should be able to clear repositories list', async () => {
+    const { getByTestId, queryByTestId } = render(<Home />);
+
+    const clearRepositoryListButton = getByTestId('clear-repository-list-button')
+    const repositoryListBefore = getByTestId('repository-list')
+
+    expect(repositoryListBefore).toBeTruthy()
+
+    fireEvent.click(clearRepositoryListButton)
+
+    const repositoryListAfter = queryByTestId('repository-list')
+
+    await waitFor(() => {
+      expect(repositoryListAfter).not.toBeTruthy()
+    })
   });
 });
