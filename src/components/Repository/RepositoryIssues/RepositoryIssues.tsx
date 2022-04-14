@@ -22,7 +22,7 @@ export function RepositoryIssues({
   retryFunction,
 }: IRepositoryIssues) {
   return (
-    <RepositoryIssuesContainer>
+    <RepositoryIssuesContainer data-testid="repository-issues">
       {!!repositoryIssues.length && (
         <>
           <h2>Trending open issues/pull requests</h2>
@@ -40,14 +40,14 @@ export function RepositoryIssues({
       )}
 
       {isLoading && ( 
-        <Wrapper>
+        <Wrapper data-testid='repository-issues-loader'>
           <Loader />
         </Wrapper>
       )}
 
       {isError && ( 
-        <Wrapper>
-          <ErrorRetry retryFunction={() => retryFunction()} />
+        <Wrapper data-testid='repository-issues-error'>
+          <ErrorRetry retryFunction={retryFunction} />
         </Wrapper>
       )}
     </RepositoryIssuesContainer>	

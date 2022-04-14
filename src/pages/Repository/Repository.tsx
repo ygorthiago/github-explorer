@@ -3,10 +3,10 @@ import { Link, useMatch } from 'react-router-dom';
 import { FiChevronLeft } from 'react-icons/fi';
 
 import { RepositoryInfo } from '../../components/Repository/RepositoryInfo';
-import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
 import { RepositoryIssues } from '../../components/Repository/RepositoryIssues';
 
 import { Header } from './styles';
+import { useRepositoriesHook } from '../../hooks/useRepositories';
 
 export function Repository() {
   const {
@@ -18,7 +18,7 @@ export function Repository() {
     isGetRepositoryError,
     isGetRepositoryIssuesError,
     isGetRepositoryIssuesLoading
-  } = useGithubExplorerContext()
+  } = useRepositoriesHook()
 
   const match = useMatch('/repository/:repository*');
 

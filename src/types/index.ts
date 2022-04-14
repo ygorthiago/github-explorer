@@ -16,7 +16,7 @@ export interface IRepositoryIssue {
   id: number;
   title: string;
   html_url: string;
-  pull_request: Object;
+  pull_request?: Object;
   user: {
     login: string;
   };

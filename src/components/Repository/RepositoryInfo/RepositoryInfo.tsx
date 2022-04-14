@@ -17,7 +17,7 @@ export function RepositoryInfo({
   retryFunction,
 }: IRepositoryInfo) {
   return (
-    <RepositoryInfoContainer>
+    <RepositoryInfoContainer data-testid="repository-info">
       { repository && (
         <>
           <header>
@@ -54,14 +54,14 @@ export function RepositoryInfo({
       }
 
       {isLoading && ( 
-        <Wrapper>
+        <Wrapper data-testid='repository-info-loader'>
           <Loader />
         </Wrapper>
       )}
 
-      {isError &&( 
-        <Wrapper>
-          <ErrorRetry retryFunction={() => retryFunction()}  />
+      {isError && (
+        <Wrapper data-testid='repository-info-error'>
+          <ErrorRetry retryFunction={retryFunction}  />
         </Wrapper>
       )}
     </RepositoryInfoContainer>
