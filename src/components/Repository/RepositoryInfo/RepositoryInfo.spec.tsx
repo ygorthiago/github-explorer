@@ -2,21 +2,10 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { RepositoryInfo } from '.';
+import { mockedRepository } from '../../../mocks/RepositoryMocks';
 
 const repositoryInfoProps = {
-  repository: {
-    full_name: 'repository/test',
-    html_url: 'https://github.com/owner/repository/test',
-    description: 'repo description',
-    stargazers_count: 10,
-    forks_count: 1,
-    open_issues_count: 12,
-    watchers_count: 90,
-    owner: {
-      login: 'owner',
-      avatar_url: 'https://github.com/owner/image.jpg',
-    }
-  },
+  repository: mockedRepository,
   isLoading: false,
   isError: false,
   retryFunction: jest.fn(),

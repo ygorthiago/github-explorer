@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 
 import { Home } from '.';
 import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
+import { mockedRepository } from '../../mocks/RepositoryMocks';
 
 const mockedAddToast = jest.fn();
 const mockedGetRepositoryRequest = jest.fn();
@@ -15,19 +16,7 @@ jest.mock('react-router-dom', () => {
 });
 
 const initialStoragedData = [
-  {
-    full_name: 'repository/test',
-    html_url: 'https://github.com/owner/repository/test',
-    description: 'repo description',
-    stargazers_count: 10,
-    forks_count: 1,
-    open_issues_count: 12,
-    watchers_count: 90,
-    owner: {
-      login: 'owner',
-      avatar_url: 'https://github.com/owner/image.jpg',
-    }
-  }
+  mockedRepository
 ];
 
 const mockedUseGithubExplorerContext = useGithubExplorerContext as jest.Mock;

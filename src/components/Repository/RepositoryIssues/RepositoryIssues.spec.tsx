@@ -2,26 +2,12 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { RepositoryIssues } from '.';
+import { mockedRepositoryIssues, mockedRepositoryIssuesWithPR } from '../../../mocks/RepositoryMocks';
 
 const repositoryIssuesProps = {
   repositoryIssues: [
-    {
-      id: 1,
-      title: 'Repo issue',
-      html_url: 'https://github.com/owner/repository/test/issue',
-      user: {
-        login: 'owner',
-      },
-    },
-    {
-      id: 2,
-      title: 'Repo pull request',
-      html_url: 'https://github.com/owner/repository/test/pr',
-      pull_request: 'https://github.com/owner/repository/pr',
-      user: {
-        login: 'owner',
-      },
-    }
+    mockedRepositoryIssues,
+    mockedRepositoryIssuesWithPR,
   ],
   isLoading: false,
   isError: false,
