@@ -4,7 +4,7 @@ import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContex
 import * as s from './styles'
 import Toast from './Toast/Toast';
 
-function ToastContainer(): JSX.Element {
+export function ToastContainer(): JSX.Element {
   const { messages } = useGithubExplorerContext();
 
   const messagesWithTransitions = useTransition(
@@ -25,5 +25,3 @@ function ToastContainer(): JSX.Element {
     </s.ToastContainer>
   );
 }
-
-export default ToastContainer;
