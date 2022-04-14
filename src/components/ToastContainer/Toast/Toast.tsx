@@ -28,7 +28,11 @@ function Toast({ message, style }: ToastProps): JSX.Element {
         {message.description && <p>{message.description}</p>}
       </div>
 
-      <button onClick={() => removeToast(message.id)} type="button">
+      <button
+        onClick={() => removeToast(message.id)}
+        type="button"
+        data-testid="close-toast-button"
+      >
         <FiXCircle size={18} />
       </button>
     </StyledToast>
