@@ -131,13 +131,14 @@ export function Home() {
             onClick={clearRepositoryList}
             data-testid="clear-repository-list-button"
           >
-            Clearlist
+            Clear list
           </ClearList>
 
           {repositories.map(repository => (
             <Link
               key={repository.full_name}
               to={`/repository/${repository.full_name}`}
+              data-testid={`repository-${repository.full_name}`}
             >
               <img
                 src={repository.owner.avatar_url}

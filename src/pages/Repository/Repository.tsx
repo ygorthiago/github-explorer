@@ -39,7 +39,7 @@ export function Repository() {
   return (
     <>
       <Header>
-        <Link to="/">
+        <Link to="/" data-testid='back-button'>
           <FiChevronLeft size={16} />
           Go back
         </Link>

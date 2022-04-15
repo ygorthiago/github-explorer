@@ -1,12 +1,23 @@
 {
   "name": "github-explorer",
+  "description": "An application to explore GitHub repositories.",
   "private": true,
   "version": "0.0.0",
+  "author": {
+    "name": "Ygor Thiago Farias"
+  },
+  "contributors": [
+    {
+      "name": "Ygor Thiago Farias",
+      "email": "ygorthiagof@gmail.com"
+    }
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -19,8 +30,11 @@
     "uuidv4": "6.2.12"
   },
   "devDependencies": {
+    "@cypress/react": "^5.9.3",
+    "@cypress/vite-dev-server": "^2.0.5",
     "@swc/core": "^1.2.165",
     "@swc/jest": "^0.2.20",
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "5.11.4",
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
@@ -31,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "@vitejs/plugin-react": "^1.0.7",
+    "cypress": "^8.1.0",
     "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",

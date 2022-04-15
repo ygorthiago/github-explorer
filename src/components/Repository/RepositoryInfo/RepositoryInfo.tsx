@@ -27,7 +27,7 @@ export function RepositoryInfo({
               loading="lazy"
             />
             <div>
-              <a href={repository.html_url} target="_blank">{repository.full_name}</a>
+              <a href={repository.html_url} target="_blank" data-testid='repository-name'>{repository.full_name}</a>
               <p>{repository.description}</p>
             </div>
           </header>
