@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
 import { useGithubExplorerContext } from '../../../contexts/useGithubExplorerContext';
 import { ToastMessage } from '../../../hooks/useToast';
+import { getDateTime } from '../../../utils';
 import { StyledToast } from './styles';
 
 interface ToastProps {
@@ -26,6 +27,7 @@ function Toast({ message, style }: ToastProps): JSX.Element {
       <div>
         <strong>{message.title}</strong>
         {message.description && <p>{message.description}</p>}
+        <p className='date'>{getDateTime()}</p>
       </div>
 
       <button

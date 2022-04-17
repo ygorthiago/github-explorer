@@ -33,6 +33,12 @@ export const StyledToast = styled(animated.div)`
     strong {
       color: ${Theme.colors.primaryWhite};
     }
+
+    .date {
+      margin-top: 5px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
   }
 
   button {
