@@ -115,7 +115,7 @@ export function Home() {
 
     timeOut.current = window.setTimeout(() => {
       handleAddRepository()
-    }, 1200);
+    }, 2000);
   }
 
   function clearRepositoryList() {
