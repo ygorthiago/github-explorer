@@ -9,6 +9,7 @@ import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContex
 
 import {
     ClearList,
+    ClearListWrapper,
     HomeContainer,
     HomeTitle,
     Repositories,
@@ -145,12 +146,14 @@ export function Home() {
 
       {!!repositories.length && (
         <Repositories data-testid='repository-list'>
-          <ClearList
-            onClick={clearRepositoryList}
-            data-testid="clear-repository-list-button"
-          >
-            Clear list
-          </ClearList>
+          <ClearListWrapper>
+            <ClearList
+              onClick={clearRepositoryList}
+              data-testid="clear-repository-list-button"
+            >
+              Clear list
+            </ClearList>
+          </ClearListWrapper>
 
           {repositories.map(repository => (
             <Link

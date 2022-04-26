@@ -152,12 +152,21 @@ export const Repositories = styled.section`
   }
 `;
 
-export const ClearList = styled.span`
+export const ClearListWrapper = styled.div`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  width: 100%;
+`
+
+export const ClearList = styled.button`
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-self: flex-end;
+  align-self: flex-end;
   margin-bottom: 20px;
   color: ${Theme.colors.primaryDarkGray};
-  cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
