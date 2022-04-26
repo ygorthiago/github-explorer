@@ -5,6 +5,8 @@ import { FiChevronRight } from 'react-icons/fi';
 import { IRepository } from "../../types";
 import { Loader } from "../../components/Loader";
 
+import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
+
 import {
     ClearList,
     HomeContainer,
@@ -14,7 +16,6 @@ import {
     SearchError,
     SearchRepoForm
 } from "./styles";
-import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
 
 export function Home() {
   const timeOut = useRef<undefined | number>();
@@ -34,6 +35,7 @@ export function Home() {
     if (storagedRepositories) {
       return JSON.parse(storagedRepositories);
     }
+
     return [];
   });
 
@@ -47,38 +49,54 @@ export function Home() {
       return;
     }
 
-    const newRepo = searchInputRef.current.value
+    function addRepository(repos: IRepository[], responseTime: number) { 
+      setRepositories(repos)
 
-    const newRepoIndex = repositories.findIndex(repo => repo.full_name === newRepo)
-
-    if (newRepoIndex > -1) {
-      const newRepositories = repositories.splice(newRepoIndex, 1);
-      
-      setRepositories(newRepositories)
-    }
-
-    try {
-      setIsLoading(true)
-      const response = await getRepositoryRequest(newRepo);
-      const newRepositories = [response.data, ...repositories];
-      
-      setRepositories(newRepositories);
-
-      const { responseTime } = response
+      localStorage.setItem(
+        '@GithubExplorer:repositories',
+        JSON.stringify(repos),
+      );
 
       addToast({
         title: 'Repository was found!',
         description: `It took ${responseTime}ms`
       });
 
-      localStorage.setItem(
-        '@GithubExplorer:repositories',
-        JSON.stringify(newRepositories),
-      );
-
       setInputError('');
       clearTimeout(timeOut.current);
-      searchInputRef.current.value = ''
+
+      if (searchInputRef.current?.value) {
+        searchInputRef.current.value = ''
+      }
+    }
+
+    const repositoryName = searchInputRef.current.value
+
+    const repositoryIndex = repositories.findIndex(repo => repo.full_name === repositoryName)
+
+    if (repositoryIndex > -1) {
+      let rearrangedRepositories = repositories;
+
+      const repository = rearrangedRepositories.splice(repositoryIndex, 1)[0];
+      rearrangedRepositories.splice(0, 0, repository);
+      
+      const fakeResponseTime = 100;
+
+      addRepository(rearrangedRepositories, fakeResponseTime);
+      
+      return;
+    }
+
+    try {
+      setIsLoading(true)
+      const response = await getRepositoryRequest(repositoryName);
+      const newRepositories = [response.data, ...repositories];
+      
+      setRepositories(newRepositories);
+
+      const { responseTime } = response;
+
+      addRepository(newRepositories, responseTime);
     } catch (err) {
       if ((err as Error).message.includes('404')) {
         setInputError('Repository not found');
