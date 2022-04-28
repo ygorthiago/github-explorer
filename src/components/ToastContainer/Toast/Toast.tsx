@@ -16,7 +16,7 @@ function Toast({ message, style }: ToastProps): JSX.Element {
   useEffect(() => {
     const timer = setTimeout(() => {
       removeToast(message.id);
-    }, 3 * 1000);
+    }, 5 * 1000);
 
     return () => clearTimeout(timer);
   }, [removeToast, message.id]);

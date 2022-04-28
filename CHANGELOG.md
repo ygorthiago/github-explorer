@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Home Page: Increased auto search time to 2 seconds to improve user experience.
 - Home Page: Creation of RepositoryCard component and use memo on it to prevent re-renders and improve performance.
 
+- Toast Container: Increased toast time to 5 seconds to improve user experience, giving more time to user to read all the information.
+
 ### Fixed
 - Home page: Adjustment on "Clear List" button.
 
