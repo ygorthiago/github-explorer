@@ -39,9 +39,9 @@ describe('Home Page', () => {
   it('should be able to initialize repository list with localStorage values', () => {
     const { getByTestId } = render(<Home />);
 
-    const repositoryListAfter = getByTestId('repository-list')
+    const repositoryList = getByTestId('repository-list')
 
-    expect(repositoryListAfter).toBeTruthy();
+    expect(repositoryList).toBeTruthy();
   });
 
   it('should be able to search a repository', () => {
@@ -50,10 +50,24 @@ describe('Home Page', () => {
     const searchRepositoryInput = getByTestId('search-repository-input')
     const searchRepositoryButton = getByTestId('search-repository-button')
 
-    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test-search' } });
     fireEvent.click(searchRepositoryButton)
 
     expect(mockedGetRepositoryRequest).toHaveBeenCalled()
+  });
+
+  it('should be able to search a repository that is already in the list', () => {
+    const { getByTestId, getByText } = render(<Home />);
+
+    const searchRepositoryInput = getByTestId('search-repository-input')
+    const searchRepositoryButton = getByTestId('search-repository-button')
+
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+    fireEvent.click(searchRepositoryButton)
+
+    const repository = getByText('repository/test')
+
+    expect(repository).toBeInTheDocument()  
   });
 
   it('should be able to search a repository without clicking on search button', async () => {
@@ -61,7 +75,7 @@ describe('Home Page', () => {
     
     const searchRepositoryInput = getByTestId('search-repository-input')
 
-    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test-search' } });
 
     jest.runAllTimers();
     
@@ -89,7 +103,7 @@ describe('Home Page', () => {
     const searchRepositoryInput = getByTestId('search-repository-input')
     const searchRepositoryButton = getByTestId('search-repository-button')
 
-    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test-fails' } });
     fireEvent.click(searchRepositoryButton)
 
     const searchErrorMessage = getByTestId('search-repository-error')
@@ -107,7 +121,7 @@ describe('Home Page', () => {
     const searchRepositoryInput = getByTestId('search-repository-input')
     const searchRepositoryButton = getByTestId('search-repository-button')
 
-    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test-not-found' } });
     fireEvent.click(searchRepositoryButton)
 
     const searchErrorMessage = getByTestId('search-repository-error')
