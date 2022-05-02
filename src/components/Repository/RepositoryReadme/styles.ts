@@ -5,14 +5,14 @@ export const RepositoryReadmeContainer = styled.section`
 `;
 
 export const Readme = styled.div`
-  height: 300px;
+  max-height: 300px;
   width: 100%;
 
   border-radius: 5px;
   margin-top: 40px;
   padding: 10px;
 
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 `
 
