@@ -5,6 +5,7 @@ import { Loader } from "../../components/Loader";
 import { RepositoryCard } from "../../components/Repository/RepositoryCard";
 
 import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
+import { useRepositoriesHook } from "../../hooks/useRepositories";
 
 import {
     ClearList,
@@ -20,10 +21,8 @@ import {
 export function Home() {
   const timeOut = useRef<undefined | number>();
   const searchInputRef = useRef<HTMLInputElement | null>(null)
-  const {
-    addToast,
-    getRepositoryRequest
-  } = useGithubExplorerContext();
+  const { addToast } = useGithubExplorerContext();
+  const { getRepositoryRequest } = useRepositoriesHook();
 
   const [inputError, setInputError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
