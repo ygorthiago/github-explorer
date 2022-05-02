@@ -9,7 +9,7 @@
 
 ## Preview
   <div align="center">
-    <img alt="Movie catalog" title="Movie Catalog" src="https://i.ibb.co/z4FbtQk/github-explorer.gif" />
+    <img alt="Movie catalog" title="Movie Catalog" src="https://i.ibb.co/NKKQV6S/github-explorer.gif" />
   </div>
 
 <br/>
