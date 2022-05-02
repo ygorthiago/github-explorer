@@ -9,6 +9,7 @@ import {
 import api from '../services/api';
 import { app } from '../services/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { useGithubExplorerContext } from '../contexts/useGithubExplorerContext';
 
 interface IAuthUserData {
   accessToken: string;
@@ -34,8 +35,9 @@ export function useGithubAuth(): IGithubAuthHook {
 
     return {} as IAuthUserData;
   });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  const { addToast } = useGithubExplorerContext()
 
   const initializeFirebaseApp = useCallback(() => {
     app;
@@ -68,9 +70,19 @@ export function useGithubAuth(): IGithubAuthHook {
         localStorage.setItem('@GithubExplorer:username', displayName);
 
         setAuthUserData({ accessToken, username: displayName });
+        
+        addToast({
+          title: 'Signed in',
+          description: 'Now you can search your private repos!'
+        })
       }
     } catch (err) {
       console.error(err);
+
+      addToast({
+        title: 'Error',
+        description: 'Some error occurred. Please, try again.'
+      })
     }
   }, [initializeFirebaseApp]);
 
@@ -86,8 +98,17 @@ export function useGithubAuth(): IGithubAuthHook {
       setAuthUserData({} as IAuthUserData);
       api.defaults.headers.common.Authorization = '';
       navigate('/');
+
+      addToast({
+        title: 'Signed out',
+      })
     } catch (err) {
       console.error(err);
+
+      addToast({
+        title: 'Error',
+        description: 'Some error occurred. Please, try again.'
+      })
     }
   }, [initializeFirebaseApp]);
 
