@@ -82,6 +82,19 @@ describe('Home Page', () => {
     expect(mockedGetRepositoryRequest).toHaveBeenCalled()
   });
 
+  it('should not do the auto search if the search input is empty', async () => {
+    const { getByTestId } = render(<Home />);
+    
+    const searchRepositoryInput = getByTestId('search-repository-input')
+
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test-search' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: '' } });
+
+    jest.runAllTimers();
+    
+    expect(mockedGetRepositoryRequest).not.toHaveBeenCalled()
+  });
+
   it('should not be able to search a repository without filling the search input', () => {
     const { getByTestId } = render(<Home />);
     const searchRepositoryButton = getByTestId('search-repository-button')
