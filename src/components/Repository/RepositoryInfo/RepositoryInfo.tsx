@@ -61,7 +61,10 @@ export function RepositoryInfo({
 
       {isError && (
         <Wrapper data-testid='repository-info-error'>
-          <ErrorRetry retryFunction={retryFunction}  />
+          <ErrorRetry
+            retryFunction={retryFunction}
+            message="If it's a private repository, sign in and try again." 
+          />
         </Wrapper>
       )}
     </RepositoryInfoContainer>

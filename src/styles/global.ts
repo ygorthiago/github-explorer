@@ -41,4 +41,13 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  *::-webkit-scrollbar {
+    width: 9px;
+    background: ${Theme.colors.primaryLightGray};
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: ${Theme.colors.primaryGray};
+  }
 `;

@@ -6,10 +6,6 @@ export const ErrorRetryContainer = styled.div `
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  h3 {
-    margin-bottom: 1rem;
-  }
 
   button {
     background: ${Theme.colors.primaryDarkerGray};
@@ -22,5 +18,21 @@ export const ErrorRetryContainer = styled.div `
     &:hover {
       opacity: 0.9;
     }
-}
+  }
+`
+
+export const ErrorText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 1rem;
+  
+  p {
+    color: ${Theme.colors.primaryMediumGray} !important; 
+    text-align: center;
+
+    margin-top: 0.5rem;
+  }
 `

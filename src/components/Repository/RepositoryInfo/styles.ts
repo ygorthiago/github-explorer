@@ -7,36 +7,35 @@ export const RepositoryInfoContainer = styled.section`
   header {
     display: flex;
     align-items: center;
+
+    div {
+      a {
+        font-size: 1.5rem;
+        max-width: 200px;
+        color: ${Theme.colors.primaryDarkGray};
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.2s;
+  
+        &:hover {
+          text-decoration: underline;
+          opacity: 0.9;
+        }
+      }
+  
+      p {
+        font-size: 1.125rem;
+        color: ${Theme.colors.primaryGray};
+        margin-top: 4px;
+      }
+    }
   }
 
   img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-  }
-
-  div {
-    margin-left: 24px;
-
-    a {
-      font-size: 1.5rem;
-      max-width: 200px;
-      color: ${Theme.colors.primaryDarkGray};
-      font-weight: bold;
-      text-decoration: none;
-      transition: all 0.2s;
-
-      &:hover {
-        text-decoration: underline;
-        opacity: 0.9;
-      }
-    }
-
-    p {
-      font-size: 1.125rem;
-      color: ${Theme.colors.primaryGray};
-      margin-top: 4px;
-    }
+    margin-right: 24px;
   }
 
   ul {

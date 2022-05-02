@@ -24,7 +24,7 @@ export const mockedRepositoryIssues: IRepositoryIssue = {
 }
 
 export const mockedRepositoryIssuesWithPR: IRepositoryIssue = {
-  id: 1,
+  id: 2,
   title: 'Repo issue',
   html_url: 'https://github.com/owner/repository/test/issue',
   pull_request: 'https://github.com/owner/repository/pr',

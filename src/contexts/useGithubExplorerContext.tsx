@@ -6,20 +6,18 @@ interface IGithubExplorerProviderProps {
   children: ReactNode;
 }
 
-interface IGithubExplorerContextData extends IToastHook, IUseRepositoriesHook { }
+interface IGithubExplorerContextData extends IToastHook { }
 
 const GithubExplorerContext = createContext<IGithubExplorerContextData>({} as IGithubExplorerContextData);
 export function GithubExplorerProvider({ 
   children 
 }: IGithubExplorerProviderProps): JSX.Element {
   const useToast = useToastHook();
-  const useRepositories = useRepositoriesHook();
 
   return (
     <GithubExplorerContext.Provider
       value={{
         ...useToast,
-        ...useRepositories,
       }}
     >
       {children}

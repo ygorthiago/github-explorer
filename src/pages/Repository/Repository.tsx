@@ -5,8 +5,10 @@ import { FiChevronLeft } from 'react-icons/fi';
 import { RepositoryInfo } from '../../components/Repository/RepositoryInfo';
 import { RepositoryIssues } from '../../components/Repository/RepositoryIssues';
 
-import { Header } from './styles';
 import { useRepositoriesHook } from '../../hooks/useRepositories';
+import { RepositoryReadme } from '../../components/Repository/RepositoryReadme';
+
+import { Header } from './styles';
 
 export function Repository() {
   const {
@@ -17,7 +19,11 @@ export function Repository() {
     isGetRepositoryLoading,
     isGetRepositoryError,
     isGetRepositoryIssuesError,
-    isGetRepositoryIssuesLoading
+    isGetRepositoryIssuesLoading,
+    getRepositoryReadme,
+    readme,
+    isGetReadmeLoading,
+    isGetReadmeError
   } = useRepositoriesHook()
 
   const match = useMatch('/repository/:repository*');
@@ -31,10 +37,14 @@ export function Repository() {
   }, [repositoryName]);
 
   useEffect(() => {
+    if (repositoryName && repository) {
+      getRepositoryReadme(repositoryName)
+    }
+
     if (repositoryName && repository?.open_issues_count) {
       getRepositoryIssues(repositoryName)
     }
-  }, [repositoryName, repository?.open_issues_count]);
+  }, [repositoryName, repository, repository?.open_issues_count]);
 
   return (
     <>
@@ -53,6 +63,15 @@ export function Repository() {
       />
 
       {repository && (
+        <RepositoryReadme
+          readme={readme}
+          isLoading={isGetReadmeLoading}
+          isError={isGetReadmeError}
+          retryFunction={() => getRepositoryReadme(repositoryName)}
+        />
+      )}
+
+      {repository && !isGetReadmeLoading && (
         <RepositoryIssues
           repositoryIssues={issues}
           isLoading={isGetRepositoryIssuesLoading}

@@ -4,7 +4,6 @@ import { Repository } from "./pages/Repository";
 
 export function Router(): JSX.Element {
   return(
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/repository/:repository*" element={<Repository />} />
@@ -13,6 +12,5 @@ export function Router(): JSX.Element {
           element={<Navigate to="/" replace />}
         />
       </Routes>
-    </BrowserRouter>
   )
 }

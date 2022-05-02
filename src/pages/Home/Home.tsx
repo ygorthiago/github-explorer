@@ -5,6 +5,7 @@ import { Loader } from "../../components/Loader";
 import { RepositoryCard } from "../../components/Repository/RepositoryCard";
 
 import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
+import { useRepositoriesHook } from "../../hooks/useRepositories";
 
 import {
     ClearList,
@@ -20,10 +21,8 @@ import {
 export function Home() {
   const timeOut = useRef<undefined | number>();
   const searchInputRef = useRef<HTMLInputElement | null>(null)
-  const {
-    addToast,
-    getRepositoryRequest
-  } = useGithubExplorerContext();
+  const { addToast } = useGithubExplorerContext();
+  const { getRepositoryRequest } = useRepositoriesHook();
 
   const [inputError, setInputError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -99,22 +98,28 @@ export function Home() {
       addRepository(newRepositories, responseTime);
     } catch (err) {
       if ((err as Error).message.includes('404')) {
-        setInputError('Repository not found');
+        setInputError(`Repository not found. If it's a private repository, sign in and try again.`);
         return
       }
 
       setInputError('Error searching repository');
     } finally {
       setIsLoading(false)
+      clearTimeout(timeOut.current);
     }
   }
 
   function searchRepository() {
-    clearTimeout(timeOut.current);
-
-    timeOut.current = window.setTimeout(() => {
-      handleAddRepository()
-    }, 2000);
+    if (searchInputRef.current?.value) {
+      clearTimeout(timeOut.current);
+  
+      timeOut.current = window.setTimeout(() => {
+        handleAddRepository()
+        clearTimeout(timeOut.current);
+      }, 2000);
+    } else {
+      clearTimeout(timeOut.current);
+    }
   }
 
   function clearRepositoryList() {

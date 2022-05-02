@@ -3,8 +3,9 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { Home } from '.';
-import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
 import { mockedRepository } from '../../mocks/RepositoryMocks';
+import { useRepositoriesHook } from '../../hooks/useRepositories';
+import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
 
 const mockedAddToast = jest.fn();
 const mockedGetRepositoryRequest = jest.fn();
@@ -19,15 +20,21 @@ const initialStoragedData = [
   mockedRepository
 ];
 
-const mockedUseGithubExplorerContext = useGithubExplorerContext as jest.Mock;
+const mockeduseRepositoriesHook = useRepositoriesHook as jest.Mock;
+jest.mock('../../hooks/useRepositories');
 
+const mockedUseGithubExplorerContext = useGithubExplorerContext as jest.Mock;
 jest.mock('../../contexts/useGithubExplorerContext');
+
 jest.useFakeTimers();
 
 describe('Home Page', () => {
   beforeEach(() => {
-    mockedUseGithubExplorerContext.mockReturnValue({
+    mockeduseRepositoriesHook.mockReturnValue({
       getRepositoryRequest: mockedGetRepositoryRequest,
+    });
+
+    mockedUseGithubExplorerContext.mockReturnValue({
       addToast: mockedAddToast,
     });
 
@@ -80,6 +87,19 @@ describe('Home Page', () => {
     jest.runAllTimers();
     
     expect(mockedGetRepositoryRequest).toHaveBeenCalled()
+  });
+
+  it('should not do the auto search if the search input is empty', async () => {
+    const { getByTestId } = render(<Home />);
+    
+    const searchRepositoryInput = getByTestId('search-repository-input')
+
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test-search' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: '' } });
+
+    jest.runAllTimers();
+    
+    expect(mockedGetRepositoryRequest).not.toHaveBeenCalled()
   });
 
   it('should not be able to search a repository without filling the search input', () => {

@@ -2,7 +2,7 @@
   "name": "github-explorer",
   "description": "An application to explore GitHub repositories.",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Ygor Thiago Farias"
   },
@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "buffer": "^6.0.3",
+    "firebase": "^9.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",

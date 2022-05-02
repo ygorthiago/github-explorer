@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const ToastContainer = styled.div`
   position: fixed;
   right: 0;
-  top: 4rem;
+  top: 6rem;
   padding: 0 0.625rem;
   overflow: hidden;
   z-index: 1000;
