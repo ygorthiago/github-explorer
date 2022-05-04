@@ -10,7 +10,7 @@ export interface IUseRepositoriesHook {
   isGetRepositoryLoading: boolean;
   isGetRepositoryError: boolean;
   issues: IRepositoryIssue[];
-  getRepositoryIssues: (repositoryName: string) => void;
+  getRepositoryIssues: (repositoryName: string, page: number) => void;
   isGetRepositoryIssuesLoading: boolean;
   isGetRepositoryIssuesError: boolean;
   getRepositoryRequest: (
@@ -77,7 +77,7 @@ export function useRepositoriesHook(): IUseRepositoriesHook {
     [getRepositoryRequest],
   );
 
-  const getRepositoryIssues = useCallback(async (repositoryName: string) => {
+  const getRepositoryIssues = useCallback(async (repositoryName: string, page: number) => {
     setIsGetRepositoryIssuesError(false);
     setIsGetRepositoryIssuesLoading(true);
 
@@ -86,7 +86,7 @@ export function useRepositoriesHook(): IUseRepositoriesHook {
         `/repos/${repositoryName}/issues`,
         {
           params: {
-            page: 1,
+            page: page,
             per_page: 10,
             sort: 'updated-desc',
           },

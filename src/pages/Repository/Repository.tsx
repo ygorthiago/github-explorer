@@ -13,13 +13,9 @@ import { Header } from './styles';
 export function Repository() {
   const {
     getRepository,
-    getRepositoryIssues,
     repository,
-    issues,
     isGetRepositoryLoading,
     isGetRepositoryError,
-    isGetRepositoryIssuesError,
-    isGetRepositoryIssuesLoading,
     getRepositoryReadme,
     readme,
     isGetReadmeLoading,
@@ -37,14 +33,10 @@ export function Repository() {
   }, [repositoryName]);
 
   useEffect(() => {
-    if (repositoryName && repository) {
+    if (repository) {
       getRepositoryReadme(repositoryName)
     }
-
-    if (repositoryName && repository?.open_issues_count) {
-      getRepositoryIssues(repositoryName)
-    }
-  }, [repositoryName, repository, repository?.open_issues_count]);
+  }, [repositoryName, repository]);
 
   return (
     <>
@@ -71,12 +63,10 @@ export function Repository() {
         />
       )}
 
-      {repository && !isGetReadmeLoading && (
+      {repository?.open_issues_count && !isGetReadmeLoading && (
         <RepositoryIssues
-          repositoryIssues={issues}
-          isLoading={isGetRepositoryIssuesLoading}
-          isError={isGetRepositoryIssuesError}
-          retryFunction={() => getRepositoryIssues(repositoryName)}
+          totalIssues={repository.open_issues_count}
+          repositoryName={repositoryName}
         />
       )}
     </>
