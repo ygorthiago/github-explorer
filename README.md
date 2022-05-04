@@ -35,7 +35,7 @@
 - [X] Repository details
 - [X] Repository README
 - [x] Repository issues list
-  - [ ] Pagination
+  - [x] Pagination
 
 ### App
 - [x] Reponsive app
