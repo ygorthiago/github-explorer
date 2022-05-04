@@ -28,6 +28,7 @@ export function RepositoryIssues({
   } = useRepositoriesHook()
 
   const [page, setPage] = useState(1);
+  const registersPerPage = 10;
 
   useEffect(() => {
     getRepositoryIssues(repositoryName, page)
@@ -51,12 +52,14 @@ export function RepositoryIssues({
             </a>
           ))}
           
-          <Pagination 
-            totalCountOfRegisters={totalIssues}
-            registersPerPage={10}
-            currentPage={page}
-            onPageChange={setPage}
-          />
+          {totalIssues > registersPerPage && (
+            <Pagination 
+              totalCountOfRegisters={totalIssues}
+              registersPerPage={registersPerPage}
+              currentPage={page}
+              onPageChange={setPage}
+            />
+          )}
         </>
       )}
 

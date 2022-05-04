@@ -71,7 +71,7 @@ describe('Search repositories - success', () => {
      cy.findByTestId(`repository-${repository}`).should('not.exist');
   })
 
-  it('should be able to use the repository issues pagination', () => {
+  it('should be able to use the repository issues pagination on Repository page', () => {
     const paginationRepo = 'facebook/react' // to be changed when the test repository with a lot of issues is created
 
     cy.visit('/');
@@ -96,6 +96,37 @@ describe('Search repositories - success', () => {
 
     //verify if its the correct repository
     cy.findByTestId('repository-name').contains(paginationRepo)
+
+    //change the repository issues page
+    cy.findByTestId('pagination-item-2').click()
+
+    //verify if the page changed and if the pagination button '2' is disabled
+    cy.findByTestId('pagination-item-2').should('be.disabled')
+  })
+
+  it('should be able to use the repository list pagination on Home page', () => {
+    const repositoryList = [
+      repository,
+      'ygorthiago/github-explorer',
+      'ygorthiago/flip-bookstore',
+      'ygorthiago/gobarber-web',
+      'ygorthiago/gobarber-api',
+      'ygorthiago/dropull-nft'
+    ]
+
+    cy.visit('/');
+
+    
+    repositoryList.forEach((repo) => {
+      //should input a repository name
+      cy.findByTestId('search-repository-input').type(repo);
+
+      //click on search
+      cy.findByTestId('search-repository-button').click();
+  
+      //see if the repository was added
+      cy.findByTestId(`repository-${repo}`).should('exist');
+    })
 
     //change the repository issues page
     cy.findByTestId('pagination-item-2').click()

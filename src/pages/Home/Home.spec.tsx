@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { Home } from '.';
-import { mockedRepository } from '../../mocks/RepositoryMocks';
+import { mockedRepositoryList } from '../../mocks/RepositoryMocks';
 import { useRepositoriesHook } from '../../hooks/useRepositories';
 import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
 
@@ -16,9 +16,7 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-const initialStoragedData = [
-  mockedRepository
-];
+const initialStoragedData = mockedRepositoryList
 
 const mockeduseRepositoriesHook = useRepositoriesHook as jest.Mock;
 jest.mock('../../hooks/useRepositories');
@@ -69,10 +67,10 @@ describe('Home Page', () => {
     const searchRepositoryInput = getByTestId('search-repository-input')
     const searchRepositoryButton = getByTestId('search-repository-button')
 
-    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test' } });
+    fireEvent.change(searchRepositoryInput, { target: { value: 'repository/test1' } });
     fireEvent.click(searchRepositoryButton)
 
-    const repository = getByText('repository/test')
+    const repository = getByText('repository/test1')
 
     expect(repository).toBeInTheDocument()  
   });

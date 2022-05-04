@@ -3,6 +3,7 @@ import { FormEvent, useRef, useState } from "react";
 import { IRepository } from "../../types";
 import { Loader } from "../../components/Loader";
 import { RepositoryCard } from "../../components/Repository/RepositoryCard";
+import { Pagination } from "../../components/Pagination";
 
 import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
 import { useRepositoriesHook } from "../../hooks/useRepositories";
@@ -37,6 +38,13 @@ export function Home() {
 
     return [];
   });
+
+  const [page, setPage] = useState(1);
+
+  const registersPerPage = 5;
+  const indexOfLastRegister = page * registersPerPage;
+  const indexOfFirstRegister = indexOfLastRegister - registersPerPage;
+  const currentRepositories = repositories.slice(indexOfFirstRegister, indexOfLastRegister);
 
   async function handleAddRepository(
     event?: FormEvent<HTMLFormElement>
@@ -159,9 +167,18 @@ export function Home() {
             </ClearList>
           </ClearListWrapper>
 
-          {repositories.map(repository => (
+          {currentRepositories.map(repository => (
             <RepositoryCard key={repository.full_name} repository={repository} />
           ))}
+
+          {repositories.length > registersPerPage && (
+            <Pagination 
+              currentPage={page}
+              totalCountOfRegisters={repositories.length}
+              registersPerPage={registersPerPage}
+              onPageChange={setPage}
+            />
+          )}
         </Repositories>
       )}
     </HomeContainer>
