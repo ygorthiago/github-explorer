@@ -9,7 +9,7 @@
 
 ## Preview
   <div align="center">
-    <img alt="Github Explorer Preview" title="Github Explorer" src="https://i.ibb.co/TYzCdGn/github-explorer.gif" />
+    <img alt="Github Explorer Preview" title="Github Explorer" src="https://i.ibb.co/r29MC0d/github-explorer.gif" />
   </div>
 
 <br/>
@@ -25,7 +25,7 @@
 - [x] Save user repositories on the repository list and storage them on localStorage
   - [x] Clear list
   - [ ] Remove items from the list
-  - [ ] Pagination
+  - [x] Pagination
 - [x] Toast to give feedbacks to user
   - [x] Display information about the API timing responses
   - [x] Use browsers navigator properties to display relative dates and times
