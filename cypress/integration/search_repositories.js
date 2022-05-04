@@ -71,6 +71,39 @@ describe('Search repositories - success', () => {
      cy.findByTestId(`repository-${repository}`).should('not.exist');
   })
 
+  it('should be able to use the repository issues pagination', () => {
+    const paginationRepo = 'facebook/react' // to be changed when the test repository with a lot of issues is created
+
+    cy.visit('/');
+
+    //should input a repository name
+    cy.findByTestId('search-repository-input').type(paginationRepo);
+
+    //click on search
+    cy.findByTestId('search-repository-button').click();
+
+    //see if toast showed up
+    cy.findByText('Repository was found!').should('exist');
+
+    //see if the repository was added
+    cy.findByTestId(`repository-${paginationRepo}`).should('exist');
+
+    //access the repository informations
+    cy.findByTestId(`repository-${paginationRepo}`).click()
+
+    //verify if its the correct url
+    cy.url().should('include', `/repository/${paginationRepo}`)
+
+    //verify if its the correct repository
+    cy.findByTestId('repository-name').contains(paginationRepo)
+
+    //change the repository issues page
+    cy.findByTestId('pagination-item-2').click()
+
+    //verify if the page changed and if the pagination button '2' is disabled
+    cy.findByTestId('pagination-item-2').should('be.disabled')
+  })
+
   it('should be able to search repository, access the repository informations and go back to home page (complete flow)', () => {
     cy.visit('/');
 
