@@ -32,3 +32,84 @@ export const mockedRepositoryIssuesWithPR: IRepositoryIssue = {
     login: 'owner',
   },
 }
+
+export const mockedRepositoryList: IRepository[] = [
+  {
+    full_name: 'repository/test1',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
+  },
+  {
+    full_name: 'repository/test2',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
+  },
+  {
+    full_name: 'repository/test3',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
+  },
+  {
+    full_name: 'repository/test4',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
+  },
+  {
+    full_name: 'repository/test5',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
+  },
+  {
+    full_name: 'repository/test6',
+    html_url: 'https://github.com/owner/repository/test',
+    description: 'repo description',
+    stargazers_count: 10,
+    forks_count: 1,
+    open_issues_count: 12,
+    watchers_count: 90,
+    owner: {
+      login: 'owner',
+      avatar_url: 'https://github.com/owner/image.jpg',
+    }
+  },
+]
