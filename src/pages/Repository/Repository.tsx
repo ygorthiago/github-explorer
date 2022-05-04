@@ -63,7 +63,7 @@ export function Repository() {
         />
       )}
 
-      {repository?.open_issues_count && !isGetReadmeLoading && (
+      {!!repository?.open_issues_count && !isGetReadmeLoading && (
         <RepositoryIssues
           totalIssues={repository.open_issues_count}
           repositoryName={repositoryName}
