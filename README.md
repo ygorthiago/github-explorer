@@ -9,7 +9,7 @@
 
 ## Preview
   <div align="center">
-    <img alt="Github Explorer Preview" title="Github Explorer" src="https://i.ibb.co/NKKQV6S/github-explorer.gif" />
+    <img alt="Github Explorer Preview" title="Github Explorer" src="https://i.ibb.co/TYzCdGn/github-explorer.gif" />
   </div>
 
 <br/>
