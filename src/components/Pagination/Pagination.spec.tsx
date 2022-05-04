@@ -32,18 +32,18 @@ describe('Pagination Component', () => {
 
     const paginationDataInfo = getByTestId('pagination-data-info')
 
-    expect(paginationDataInfo).toHaveTextContent('0 - 10 of 60')
+    expect(paginationDataInfo).toHaveTextContent('1 - 10 of 60')
 
     rerender(<Pagination {...paginationProps } currentPage={2} />)
-    expect(paginationDataInfo).toHaveTextContent('10 - 20 of 60')
+    expect(paginationDataInfo).toHaveTextContent('11 - 20 of 60')
 
     rerender(<Pagination {...paginationProps } currentPage={3} />)
-    expect(paginationDataInfo).toHaveTextContent('20 - 30 of 60')
+    expect(paginationDataInfo).toHaveTextContent('21 - 30 of 60')
 
     rerender(<Pagination {...paginationProps } currentPage={4} />)  
-    expect(paginationDataInfo).toHaveTextContent('30 - 40 of 60')
+    expect(paginationDataInfo).toHaveTextContent('31 - 40 of 60')
 
     rerender(<Pagination {...paginationProps } currentPage={6} />)
-    expect(paginationDataInfo).toHaveTextContent('50 - 60 of 60')
+    expect(paginationDataInfo).toHaveTextContent('51 - 60 of 60')
   });
 });

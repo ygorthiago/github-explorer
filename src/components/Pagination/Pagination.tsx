@@ -34,7 +34,7 @@ export function Pagination({
     ? generatePagesArray(currentPage, Math.min(currentPage + siblingsCount, lastPage))
     : [];
 
-  const pageFirstRegister = registersPerPage * (currentPage - 1)
+  const pageFirstRegister = (registersPerPage * (currentPage - 1)) + 1
   const pageLastRegister = currentPage === lastPage 
     ? totalCountOfRegisters 
     : registersPerPage * currentPage
