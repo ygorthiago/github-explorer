@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext } from 'react';
-import { IUseRepositoriesHook, useRepositoriesHook } from '../hooks/useRepositories';
 import { IToastHook, useToastHook } from '../hooks/useToast';
 
 interface IGithubExplorerProviderProps {
