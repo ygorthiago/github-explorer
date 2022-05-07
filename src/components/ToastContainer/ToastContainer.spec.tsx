@@ -2,18 +2,18 @@ import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { ToastContainer } from '.';
-import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
+import { useToastContext } from '../../contexts/useToastContext';
 
-const mockedUseGithubExplorerContext = useGithubExplorerContext as jest.Mock;
+const mockedUseToastContext = useToastContext as jest.Mock;
 
 const mockedRemoveToast = jest.fn()
 
-jest.mock('../../contexts/useGithubExplorerContext');
+jest.mock('../../contexts/useToastContext');
 jest.useFakeTimers();
 
 describe('ToastContainer component', () => {
   beforeEach(() => {
-    mockedUseGithubExplorerContext.mockReturnValue({
+    mockedUseToastContext.mockReturnValue({
       messages: { 
         title: 'Repository was found!',
         description: `It took 100ms`,

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
-import { useGithubExplorerContext } from '../../../contexts/useGithubExplorerContext';
+import { useToastContext } from '../../../contexts/useToastContext';
 import { ToastMessage } from '../../../hooks/useToast';
 import { getDateTime } from '../../../utils';
 import { StyledToast } from './styles';
@@ -11,7 +11,7 @@ interface ToastProps {
 }
 
 function Toast({ message, style }: ToastProps): JSX.Element {
-  const { removeToast } = useGithubExplorerContext();
+  const { removeToast } = useToastContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {

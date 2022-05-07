@@ -1,5 +1,5 @@
 import { ToastContainer } from './components/ToastContainer/ToastContainer';
-import { GithubExplorerProvider } from './contexts/useGithubExplorerContext';
+import { ToastProvider } from './contexts/useToastContext';
 import { Router } from './Router';
 import GlobalStyle from './styles/global';
 
@@ -9,12 +9,12 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-      <GithubExplorerProvider>
+      <ToastProvider>
         <Header />
         <Router />
         <GlobalStyle />
         <ToastContainer />
-      </GithubExplorerProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }

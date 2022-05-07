@@ -2,7 +2,7 @@
   "name": "github-explorer",
   "description": "An application to explore GitHub repositories.",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": {
     "name": "Ygor Thiago Farias"
   },

@@ -5,7 +5,7 @@ import { Loader } from "../../components/Loader";
 import { RepositoryCard } from "../../components/Repository/RepositoryCard";
 import { Pagination } from "../../components/Pagination";
 
-import { useGithubExplorerContext } from "../../contexts/useGithubExplorerContext";
+import { useToastContext } from "../../contexts/useToastContext";
 import { useRepositoriesHook } from "../../hooks/useRepositories";
 
 import {
@@ -22,7 +22,7 @@ import {
 export function Home() {
   const timeOut = useRef<undefined | number>();
   const searchInputRef = useRef<HTMLInputElement | null>(null)
-  const { addToast } = useGithubExplorerContext();
+  const { addToast } = useToastContext();
   const { getRepositoryRequest } = useRepositoriesHook();
 
   const [inputError, setInputError] = useState('');
