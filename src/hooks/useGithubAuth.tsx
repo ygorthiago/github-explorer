@@ -9,7 +9,7 @@ import {
 import api from '../services/api';
 import { app } from '../services/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
-import { useGithubExplorerContext } from '../contexts/useGithubExplorerContext';
+import { useToastContext } from '../contexts/useToastContext';
 
 interface IAuthUserData {
   accessToken: string;
@@ -37,7 +37,7 @@ export function useGithubAuth(): IGithubAuthHook {
   });
 
   const navigate = useNavigate();
-  const { addToast } = useGithubExplorerContext()
+  const { addToast } = useToastContext()
 
   const initializeFirebaseApp = useCallback(() => {
     app;

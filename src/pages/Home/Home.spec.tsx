@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import { Home } from '.';
 import { mockedRepositoryList } from '../../mocks/RepositoryMocks';
 import { useRepositoriesHook } from '../../hooks/useRepositories';
-import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
+import { useToastContext } from '../../contexts/useToastContext';
 
 const mockedAddToast = jest.fn();
 const mockedGetRepositoryRequest = jest.fn();
@@ -21,8 +21,8 @@ const initialStoragedData = mockedRepositoryList
 const mockeduseRepositoriesHook = useRepositoriesHook as jest.Mock;
 jest.mock('../../hooks/useRepositories');
 
-const mockedUseGithubExplorerContext = useGithubExplorerContext as jest.Mock;
-jest.mock('../../contexts/useGithubExplorerContext');
+const mockedUseToastContext = useToastContext as jest.Mock;
+jest.mock('../../contexts/useToastContext');
 
 jest.useFakeTimers();
 
@@ -32,7 +32,7 @@ describe('Home Page', () => {
       getRepositoryRequest: mockedGetRepositoryRequest,
     });
 
-    mockedUseGithubExplorerContext.mockReturnValue({
+    mockedUseToastContext.mockReturnValue({
       addToast: mockedAddToast,
     });
 

@@ -1,11 +1,11 @@
 import { useTransition } from 'react-spring';
-import { useGithubExplorerContext } from '../../contexts/useGithubExplorerContext';
+import { useToastContext } from '../../contexts/useToastContext';
 
 import * as s from './styles'
 import Toast from './Toast/Toast';
 
 export function ToastContainer(): JSX.Element {
-  const { messages } = useGithubExplorerContext();
+  const { messages } = useToastContext();
 
   const messagesWithTransitions = useTransition(
     messages,
