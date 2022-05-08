@@ -1,16 +1,16 @@
-import { IRepository } from "../../../types";
-import { ErrorRetry } from "../../ErrorRetry";
-import { Loader } from "../../Loader";
-import { Wrapper, RepositoryInfoContainer } from "./styles";
+import { IRepository } from '../../../types';
+import { ErrorRetry } from '../../ErrorRetry';
+import { Loader } from '../../Loader';
+import { Wrapper, RepositoryInfoContainer } from './styles';
 
 interface IRepositoryInfo {
   repository: IRepository | null;
   isLoading: boolean;
   isError: boolean;
-  retryFunction: () => void
+  retryFunction: () => void;
 }
 
-export function RepositoryInfo({ 
+export function RepositoryInfo({
   repository,
   isLoading,
   isError,
@@ -18,7 +18,7 @@ export function RepositoryInfo({
 }: IRepositoryInfo) {
   return (
     <RepositoryInfoContainer data-testid="repository-info">
-      { repository && (
+      {repository && (
         <>
           <header>
             <img
@@ -27,7 +27,14 @@ export function RepositoryInfo({
               loading="lazy"
             />
             <div>
-              <a href={repository.html_url} target="_blank" data-testid='repository-name'>{repository.full_name}</a>
+              <a
+                href={repository.html_url}
+                target="_blank"
+                data-testid="repository-name"
+                rel="noreferrer"
+              >
+                {repository.full_name}
+              </a>
               <p>{repository.description}</p>
             </div>
           </header>
@@ -50,23 +57,22 @@ export function RepositoryInfo({
             </li>
           </ul>
         </>
-        )
-      }
+      )}
 
-      {isLoading && ( 
-        <Wrapper data-testid='repository-info-loader'>
+      {isLoading && (
+        <Wrapper data-testid="repository-info-loader">
           <Loader />
         </Wrapper>
       )}
 
       {isError && (
-        <Wrapper data-testid='repository-info-error'>
+        <Wrapper data-testid="repository-info-error">
           <ErrorRetry
             retryFunction={retryFunction}
-            message="If it's a private repository, sign in and try again." 
+            message="If it's a private repository, sign in and try again."
           />
         </Wrapper>
       )}
     </RepositoryInfoContainer>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import Theme from '../../styles/Theme'
+import styled from 'styled-components';
+import Theme from '../../styles/Theme';
 
 export const PaginationContainer = styled.div`
   display: flex;
@@ -9,11 +9,10 @@ export const PaginationContainer = styled.div`
   width: 100%;
   margin-top: 50px;
 
-  
-  @media(max-width: 450px) {
+  @media (max-width: 450px) {
     flex-direction: column;
   }
-`
+`;
 
 export const PaginationItemContainer = styled.div`
   display: flex;
@@ -27,4 +26,4 @@ export const PaginationItemContainer = styled.div`
     width: 0.5rem;
     border: none;
   }
-`
+`;

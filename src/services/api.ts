@@ -1,41 +1,43 @@
 import axios, { AxiosResponse } from 'axios';
 
 export interface AxiosResponseWithResponseTime extends AxiosResponse {
-  responseTime: number
+  responseTime: number;
 }
 
 const api = axios.create({
   baseURL: 'https://api.github.com',
   headers: {
     Accept: 'application/vnd.github.v3+json',
-  }
+  },
 });
 
 let requestTimeStart = 0;
 
 axios.interceptors.request.use(
-  function (config) {
+  config => {
     requestTimeStart = new Date().getMilliseconds();
     return config;
-}, function (error) {
+  },
+  error => {
     return Promise.reject(error);
-});
+  },
+);
 
 api.interceptors.response.use(
-  (response) => {
+  response => {
     const requestTimeEnd = new Date().getMilliseconds();
-    const responseTime =  requestTimeEnd - requestTimeStart;
+    const responseTime = requestTimeEnd - requestTimeStart;
 
     const resWithResponseTime = {
       ...response,
-      responseTime
-    }
-    
+      responseTime,
+    };
+
     return resWithResponseTime;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

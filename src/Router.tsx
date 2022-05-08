@@ -1,16 +1,13 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Repository } from "./pages/Repository";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Repository } from './pages/Repository';
 
 export function Router(): JSX.Element {
-  return(
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/repository/:repository*" element={<Repository />} />
-        <Route
-          path="*"
-          element={<Navigate to="/" replace />}
-        />
-      </Routes>
-  )
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/repository/:repository*" element={<Repository />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }

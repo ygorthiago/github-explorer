@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   getAuth,
@@ -8,7 +9,6 @@ import {
 } from 'firebase/auth';
 import api from '../services/api';
 import { app } from '../services/firebaseConfig';
-import { useNavigate } from 'react-router-dom';
 import { useToastContext } from '../contexts/useToastContext';
 
 interface IAuthUserData {
@@ -37,10 +37,10 @@ export function useGithubAuth(): IGithubAuthHook {
   });
 
   const navigate = useNavigate();
-  const { addToast } = useToastContext()
+  const { addToast } = useToastContext();
 
   const initializeFirebaseApp = useCallback(() => {
-    app;
+    app();
 
     const githubProvider = new GithubAuthProvider();
     githubProvider.addScope('repo');
@@ -65,52 +65,71 @@ export function useGithubAuth(): IGithubAuthHook {
 
       if (accessToken && displayName) {
         api.defaults.headers.common.Authorization = `token ${credential.accessToken}`;
-
         localStorage.setItem('@GithubExplorer:accessToken', accessToken);
         localStorage.setItem('@GithubExplorer:username', displayName);
 
         setAuthUserData({ accessToken, username: displayName });
-        
+
         addToast({
           title: 'Signed in',
-          description: 'Now you can search your private repos!'
-        })
+          description: 'Now you can search your private repos!',
+        });
       }
     } catch (err) {
       console.error(err);
 
       addToast({
         title: 'Error',
-        description: 'Some error occurred. Please, try again.'
-      })
+        description: 'Some error occurred. Please, try again.',
+      });
     }
-  }, [initializeFirebaseApp]);
+  }, [addToast, initializeFirebaseApp]);
 
-  const githubSignOut = useCallback(async () => {
-    try {
-      const { auth } = initializeFirebaseApp();
+  const githubSignOut = useCallback(
+    async (feedbackMessage?: string) => {
+      try {
+        const { auth } = initializeFirebaseApp();
 
-      await signOut(auth);
+        await signOut(auth);
 
-      localStorage.removeItem('@GithubExplorer:accessToken');
-      localStorage.removeItem('@GithubExplorer:username');
+        localStorage.removeItem('@GithubExplorer:accessToken');
+        localStorage.removeItem('@GithubExplorer:username');
 
-      setAuthUserData({} as IAuthUserData);
-      api.defaults.headers.common.Authorization = '';
-      navigate('/');
+        setAuthUserData({} as IAuthUserData);
+        api.defaults.headers.common.Authorization = '';
+        navigate('/');
 
-      addToast({
-        title: 'Signed out',
-      })
-    } catch (err) {
-      console.error(err);
+        addToast({
+          title: 'Signed out',
+          description: feedbackMessage,
+        });
+      } catch (err) {
+        console.error(err);
 
-      addToast({
-        title: 'Error',
-        description: 'Some error occurred. Please, try again.'
-      })
-    }
-  }, [initializeFirebaseApp]);
+        addToast({
+          title: 'Error',
+          description: 'Some error occurred. Please, try again.',
+        });
+      }
+    },
+    [addToast, initializeFirebaseApp, navigate],
+  );
+
+  useEffect(() => {
+    api.interceptors.response.use(
+      response => {
+        return response;
+      },
+      error => {
+        if ((error as Error).message.includes('401')) {
+          githubSignOut('Your token expired. Please, sign in again.');
+          return error;
+        }
+
+        return Promise.reject(error);
+      },
+    );
+  }, [githubSignOut]);
 
   return {
     authUserData,

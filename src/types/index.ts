@@ -5,7 +5,7 @@ export interface IRepository {
   stargazers_count: number;
   forks_count: number;
   open_issues_count: number;
-  watchers_count: number
+  watchers_count: number;
   owner: {
     login: string;
     avatar_url: string;
@@ -16,7 +16,7 @@ export interface IRepositoryIssue {
   id: number;
   title: string;
   html_url: string;
-  pull_request?: Object;
+  pull_request?: string;
   user: {
     login: string;
   };

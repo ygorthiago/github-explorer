@@ -1,11 +1,11 @@
-import { memo } from 'react'
+import { memo } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
-import { IRepository } from '../../../types'
+import { IRepository } from '../../../types';
 
 import { RepositoryCardContainer } from './styles';
 
 interface IRepositoryCard {
-  repository: IRepository
+  repository: IRepository;
 }
 
 function RepositoryCardComponent({ repository }: IRepositoryCard) {
@@ -25,7 +25,7 @@ function RepositoryCardComponent({ repository }: IRepositoryCard) {
       </div>
       <FiChevronRight size={20} />
     </RepositoryCardContainer>
-  ) 
+  );
 }
 
-export const RepositoryCard = memo(RepositoryCardComponent)
+export const RepositoryCard = memo(RepositoryCardComponent);

@@ -15,19 +15,21 @@ export interface IToastHook {
 
 export function useToastHook(): IToastHook {
   const [messages, setMessages] = useState<ToastMessage[]>([]);
-  
+
   const addToast = useCallback(
-    ({title, description}: Omit<ToastMessage, 'id'>) => {
-    const id = uuidv4();
+    ({ title, description }: Omit<ToastMessage, 'id'>) => {
+      const id = uuidv4();
 
-    const toast = {
-      id,
-      title,
-      description,
-    };
+      const toast = {
+        id,
+        title,
+        description,
+      };
 
-    setMessages(oldMessages => [...oldMessages, toast]);
-  }, []);
+      setMessages(oldMessages => [...oldMessages, toast]);
+    },
+    [],
+  );
 
   const removeToast = useCallback((id: string) => {
     setMessages(state => state.filter(message => message.id !== id));

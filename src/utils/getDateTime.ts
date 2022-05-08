@@ -1,15 +1,15 @@
 export function getDateTime() {
-  const date = new Date()
+  const date = new Date();
 
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const locale = Intl.DateTimeFormat().resolvedOptions().locale;
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+  const { locale } = Intl.DateTimeFormat().resolvedOptions();
 
-  const localeDateTime = date.toLocaleString(locale, { 
-    timeZone: timeZone, 
-    hour12: true, 
-    timeStyle: 'short', 
-    dateStyle: 'short'
-  })
+  const localeDateTime = date.toLocaleString(locale, {
+    timeZone,
+    hour12: true,
+    timeStyle: 'short',
+    dateStyle: 'short',
+  });
 
-  return localeDateTime
+  return localeDateTime;
 }

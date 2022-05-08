@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ToastContainer = styled.div`
   position: fixed;
@@ -12,4 +12,4 @@ export const ToastContainer = styled.div`
     padding: 0 1.875rem;
     right: calc((100vw - 700px) / 2);
   }
-`
+`;

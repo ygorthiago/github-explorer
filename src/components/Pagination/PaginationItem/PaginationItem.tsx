@@ -1,4 +1,4 @@
-import { PaginationItemButton } from "./styles";
+import { PaginationItemButton } from './styles';
 
 interface PaginationItemProps {
   number: number;
@@ -6,15 +6,19 @@ interface PaginationItemProps {
   onPageChange: (page: number) => void;
 }
 
-export function PaginationItem({ number, isCurrent = false, onPageChange }: PaginationItemProps) {
-    return(
-      <PaginationItemButton
-        isCurrent={isCurrent}
-        disabled={isCurrent}
-        data-testid={`pagination-item-${number}`}
-        onClick={() => onPageChange(number)}
-      >
-        {number}
-      </PaginationItemButton>
-    );
+export function PaginationItem({
+  number,
+  isCurrent = false,
+  onPageChange,
+}: PaginationItemProps) {
+  return (
+    <PaginationItemButton
+      isCurrent={isCurrent}
+      disabled={isCurrent}
+      data-testid={`pagination-item-${number}`}
+      onClick={() => onPageChange(number)}
+    >
+      {number}
+    </PaginationItemButton>
+  );
 }

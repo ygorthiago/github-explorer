@@ -1,30 +1,29 @@
-import { useCallback } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FiX } from 'react-icons/fi';
 import { useGithubAuth } from '../../hooks/useGithubAuth';
 import { GithubAuthButton } from './styles';
 
 export function SignInButton() {
-  const { githubSignIn, githubSignOut, authUserData } = useGithubAuth()
+  const { githubSignIn, githubSignOut, authUserData } = useGithubAuth();
 
-  return !!authUserData.accessToken ? (
-    <GithubAuthButton 
-      type="button" 
+  return authUserData.accessToken ? (
+    <GithubAuthButton
+      type="button"
       onClick={() => githubSignOut()}
-      data-testid='sign-out-button'
+      data-testid="sign-out-button"
     >
-      <FaGithub className='signedInIcon' />
+      <FaGithub className="signedInIcon" />
       {authUserData.username}
-      <FiX className='closeIcon' />
+      <FiX className="closeIcon" />
     </GithubAuthButton>
   ) : (
-    <GithubAuthButton 
-      type="button" 
+    <GithubAuthButton
+      type="button"
       onClick={() => githubSignIn()}
-      data-testid='sign-in-button'
+      data-testid="sign-in-button"
     >
-      <FaGithub  />
+      <FaGithub />
       Sign in with Github
     </GithubAuthButton>
-  )
+  );
 }

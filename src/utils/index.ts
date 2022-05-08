@@ -1,1 +1,1 @@
-export * from './getDateTime'
+export * from './getDateTime';

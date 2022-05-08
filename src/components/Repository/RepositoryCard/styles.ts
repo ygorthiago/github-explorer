@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import Theme from '../../../styles/Theme'
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Theme from '../../../styles/Theme';
 
 export const RepositoryCardContainer = styled(Link)`
   background: ${Theme.colors.primaryWhite};
@@ -49,10 +49,10 @@ export const RepositoryCardContainer = styled(Link)`
     color: ${Theme.colors.primaryLightGray};
   }
 
-  @media(min-width: 450px) {
+  @media (min-width: 450px) {
     img {
       width: 64px;
       height: 64px;
     }
   }
-`
+`;

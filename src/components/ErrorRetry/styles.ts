@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import Theme from '../../styles/Theme'
+import styled from 'styled-components';
+import Theme from '../../styles/Theme';
 
-export const ErrorRetryContainer = styled.div `
+export const ErrorRetryContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,7 @@ export const ErrorRetryContainer = styled.div `
       opacity: 0.9;
     }
   }
-`
+`;
 
 export const ErrorText = styled.div`
   display: flex;
@@ -28,11 +28,11 @@ export const ErrorText = styled.div`
   align-items: center;
 
   margin-bottom: 1rem;
-  
+
   p {
-    color: ${Theme.colors.primaryMediumGray} !important; 
+    color: ${Theme.colors.primaryMediumGray} !important;
     text-align: center;
 
     margin-top: 0.5rem;
   }
-`
+`;

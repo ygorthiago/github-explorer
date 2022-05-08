@@ -1,1 +1,1 @@
-export * from './RepositoryReadme'
+export * from './RepositoryReadme';

@@ -63,11 +63,14 @@
         "jsx-a11y/no-noninteractive-element-interactions": "off",
         "no-console": ["error", { "allow": ["error"] }],
         "react/jsx-props-no-spreading": "off",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "react/require-default-props": "off"
     },
     "settings": {
         "import/resolver": {
-          "typescript": {}
+            "node": {
+                "extensions": [".ts", ".tsx"]
+            }
         }
       }
 }

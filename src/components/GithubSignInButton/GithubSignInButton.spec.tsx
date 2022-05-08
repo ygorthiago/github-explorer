@@ -12,21 +12,21 @@ const mockedUseGithubAuth = useGithubAuth as jest.Mock;
 
 jest.mock('../../hooks/useGithubAuth');
 
-const mockedGithubSignIn = jest.fn()
-const mockedGithubSignOut = jest.fn()
+const mockedGithubSignIn = jest.fn();
+const mockedGithubSignOut = jest.fn();
 
 describe('SignInButton Component', () => {
   const useGithubAuthMockValues = {
     authUserData: {},
     githubSignIn: mockedGithubSignIn,
-    githubSignOut: mockedGithubSignOut
-  }
+    githubSignOut: mockedGithubSignOut,
+  };
 
   beforeEach(() => {
     mockedUseGithubAuth.mockReturnValue({
       ...useGithubAuthMockValues,
-    })
-  })
+    });
+  });
   it('should be able to render SignInButton component', () => {
     const headerComponent = render(<SignInButton />);
 
@@ -36,10 +36,10 @@ describe('SignInButton Component', () => {
   it('should be able to SignIn', () => {
     const { getByTestId } = render(<SignInButton />);
 
-    const signInButton = getByTestId('sign-in-button')
-    fireEvent.click(signInButton)
+    const signInButton = getByTestId('sign-in-button');
+    fireEvent.click(signInButton);
 
-    expect(mockedGithubSignIn).toHaveBeenCalled()
+    expect(mockedGithubSignIn).toHaveBeenCalled();
   });
 
   it('should be able to SignOut', () => {
@@ -47,15 +47,15 @@ describe('SignInButton Component', () => {
       ...useGithubAuthMockValues,
       authUserData: {
         accessToken: 'mockedAccessToken',
-        username: 'mockedUsername'
+        username: 'mockedUsername',
       },
-    })
+    });
 
     const { getByTestId } = render(<SignInButton />);
 
-    const signOutButton = getByTestId('sign-out-button')
-    fireEvent.click(signOutButton)
+    const signOutButton = getByTestId('sign-out-button');
+    fireEvent.click(signOutButton);
 
-    expect(mockedGithubSignOut).toHaveBeenCalled()
+    expect(mockedGithubSignOut).toHaveBeenCalled();
   });
 });

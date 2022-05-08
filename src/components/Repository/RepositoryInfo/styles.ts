@@ -16,13 +16,13 @@ export const RepositoryInfoContainer = styled.section`
         font-weight: bold;
         text-decoration: none;
         transition: all 0.2s;
-  
+
         &:hover {
           text-decoration: underline;
           opacity: 0.9;
         }
       }
-  
+
       p {
         font-size: 1.125rem;
         color: ${Theme.colors.primaryGray};
@@ -48,7 +48,7 @@ export const RepositoryInfoContainer = styled.section`
 
   li {
     width: 100px;
-    
+
     strong {
       display: block;
       font-size: 2.25rem;
@@ -62,7 +62,7 @@ export const RepositoryInfoContainer = styled.section`
     }
   }
 
-  @media(min-width: 450px) {
+  @media (min-width: 450px) {
     img {
       width: 120px;
       height: 120px;
@@ -82,4 +82,4 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-`
+`;
