@@ -6,7 +6,7 @@ import { useToastContext } from '../../contexts/useToastContext';
 
 const mockedUseToastContext = useToastContext as jest.Mock;
 
-const mockedRemoveToast = jest.fn()
+const mockedRemoveToast = jest.fn();
 
 jest.mock('../../contexts/useToastContext');
 jest.useFakeTimers();
@@ -14,7 +14,7 @@ jest.useFakeTimers();
 describe('ToastContainer component', () => {
   beforeEach(() => {
     mockedUseToastContext.mockReturnValue({
-      messages: { 
+      messages: {
         title: 'Repository was found!',
         description: `It took 100ms`,
       },
@@ -23,8 +23,8 @@ describe('ToastContainer component', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks()
-  })
+    jest.clearAllMocks();
+  });
 
   it('should be able to render ToastContainer', () => {
     const toastContainer = render(<ToastContainer />);
@@ -45,7 +45,7 @@ describe('ToastContainer component', () => {
   it('should be able to close by itself after 3 seconds', async () => {
     render(<ToastContainer />);
     jest.runAllTimers();
-  
+
     expect(mockedRemoveToast).toHaveBeenCalled();
   });
 });

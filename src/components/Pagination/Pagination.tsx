@@ -1,5 +1,5 @@
-import { PaginationItem } from "./PaginationItem";
-import { PaginationContainer, PaginationItemContainer } from "./styles";
+import { PaginationItem } from './PaginationItem';
+import { PaginationContainer, PaginationItemContainer } from './styles';
 
 interface PaginationProps {
   totalCountOfRegisters: number;
@@ -15,35 +15,41 @@ function generatePagesArray(from: number, to: number) {
     .map((_, index) => {
       return from + index + 1;
     })
-    .filter(page => page > 0)
+    .filter(page => page > 0);
 }
 
-export function Pagination({ 
+export function Pagination({
   totalCountOfRegisters,
   registersPerPage = 10,
   currentPage = 1,
-  onPageChange
- }: PaginationProps) {
+  onPageChange,
+}: PaginationProps) {
   const lastPage = Math.ceil(totalCountOfRegisters / registersPerPage);
 
-  const previousPages = currentPage > 1
-    ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
-    : [];
+  const previousPages =
+    currentPage > 1
+      ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
+      : [];
 
-  const nextPages = currentPage < lastPage
-    ? generatePagesArray(currentPage, Math.min(currentPage + siblingsCount, lastPage))
-    : [];
+  const nextPages =
+    currentPage < lastPage
+      ? generatePagesArray(
+          currentPage,
+          Math.min(currentPage + siblingsCount, lastPage),
+        )
+      : [];
 
-  const pageFirstRegister = (registersPerPage * (currentPage - 1)) + 1
-  const pageLastRegister = currentPage === lastPage 
-    ? totalCountOfRegisters 
-    : registersPerPage * currentPage
+  const pageFirstRegister = registersPerPage * (currentPage - 1) + 1;
+  const pageLastRegister =
+    currentPage === lastPage
+      ? totalCountOfRegisters
+      : registersPerPage * currentPage;
 
-  const renderLeftSiblings = currentPage > (1 + siblingsCount)
-  const renderRightSiblings = (currentPage + siblingsCount) < lastPage
+  const renderLeftSiblings = currentPage > 1 + siblingsCount;
+  const renderRightSiblings = currentPage + siblingsCount < lastPage;
 
-  const renderLeftEllipsis = currentPage > (2 + siblingsCount) 
-  const renderRightEllipsis = (currentPage + 1 + siblingsCount) < lastPage
+  const renderLeftEllipsis = currentPage > 2 + siblingsCount;
+  const renderRightEllipsis = currentPage + 1 + siblingsCount < lastPage;
 
   return (
     <PaginationContainer>
@@ -56,21 +62,37 @@ export function Pagination({
         {renderLeftSiblings && (
           <>
             <PaginationItem number={1} onPageChange={onPageChange} />
-            {renderLeftEllipsis && (
-             <p>···</p> 
-            )}
+            {renderLeftEllipsis && <p>···</p>}
           </>
         )}
 
-        {previousPages.length > 0 && previousPages.map(page => {
-          return <PaginationItem key={page} number={page} onPageChange={onPageChange} />
-        })}
+        {previousPages.length > 0 &&
+          previousPages.map(page => {
+            return (
+              <PaginationItem
+                key={page}
+                number={page}
+                onPageChange={onPageChange}
+              />
+            );
+          })}
 
-        <PaginationItem number={currentPage} isCurrent onPageChange={onPageChange} />
+        <PaginationItem
+          number={currentPage}
+          isCurrent
+          onPageChange={onPageChange}
+        />
 
-        {nextPages.length > 0 && nextPages.map(page => {
-          return <PaginationItem key={page} number={page} onPageChange={onPageChange} />
-        })}
+        {nextPages.length > 0 &&
+          nextPages.map(page => {
+            return (
+              <PaginationItem
+                key={page}
+                number={page}
+                onPageChange={onPageChange}
+              />
+            );
+          })}
 
         {renderRightSiblings && (
           <>
@@ -78,8 +100,7 @@ export function Pagination({
             <PaginationItem number={lastPage} onPageChange={onPageChange} />
           </>
         )}
-
       </PaginationItemContainer>
     </PaginationContainer>
-  )
+  );
 }

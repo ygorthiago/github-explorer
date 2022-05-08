@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Theme from "../../styles/Theme";
+import styled from 'styled-components';
+import Theme from '../../styles/Theme';
 
-export const GithubAuthButton = styled.button `
+export const GithubAuthButton = styled.button`
   height: 3rem;
   border-radius: 3rem;
   background: ${Theme.colors.primaryDarkerGray};
@@ -24,12 +24,12 @@ export const GithubAuthButton = styled.button `
     }
 
     &.signedInIcon {
-      color: ${Theme.colors.primaryGreen}
+      color: ${Theme.colors.primaryGreen};
     }
 
     &.closeIcon {
       margin-left: 1rem;
-      color: ${Theme.colors.primaryGray}
+      color: ${Theme.colors.primaryGray};
     }
   }
 
@@ -38,4 +38,4 @@ export const GithubAuthButton = styled.button `
   &:hover {
     filter: brightness(0.8);
   }
-`
+`;

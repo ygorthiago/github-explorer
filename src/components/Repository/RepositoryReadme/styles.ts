@@ -14,7 +14,7 @@ export const Readme = styled.div`
 
   overflow-y: auto;
   overflow-x: hidden;
-`
+`;
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -22,4 +22,4 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-`
+`;

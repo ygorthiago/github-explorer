@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -10,9 +10,9 @@ export const HeaderContainer = styled.header`
     justify-content: center;
     gap: 20px;
   }
-`
+`;
 
 export const HeaderLogo = styled.div`
   display: flex;
   gap: 10px;
-`
+`;

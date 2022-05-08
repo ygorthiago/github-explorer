@@ -12,8 +12,8 @@ import { useRepositoriesHook } from '../../../hooks/useRepositories';
 import { RepositoryIssuesContainer, Wrapper } from './styles';
 
 interface IRepositoryIssues {
-  repositoryName: string
-  totalIssues: number
+  repositoryName: string;
+  totalIssues: number;
 }
 
 export function RepositoryIssues({
@@ -25,16 +25,16 @@ export function RepositoryIssues({
     issues,
     isGetRepositoryIssuesError,
     isGetRepositoryIssuesLoading,
-  } = useRepositoriesHook()
+  } = useRepositoriesHook();
 
   const [page, setPage] = useState(1);
   const registersPerPage = 10;
 
   useEffect(() => {
-    getRepositoryIssues(repositoryName, page)
-  }, [repositoryName, page]);
+    getRepositoryIssues(repositoryName, page);
+  }, [repositoryName, page, getRepositoryIssues]);
 
-  const mustRenderIssues = !!issues.length && !isGetRepositoryIssuesError
+  const mustRenderIssues = !!issues.length && !isGetRepositoryIssuesError;
 
   return (
     <RepositoryIssuesContainer data-testid="repository-issues">
@@ -42,7 +42,12 @@ export function RepositoryIssues({
         <>
           <h2>Trending open issues/pull requests</h2>
           {issues.map(issue => (
-            <a key={issue.id} href={issue.html_url} target="_blank">
+            <a
+              key={issue.id}
+              href={issue.html_url}
+              target="_blank"
+              rel="noreferrer"
+            >
               {issue.pull_request ? <BiGitPullRequest /> : <VscIssues />}
               <div>
                 <strong>{issue.title}</strong>
@@ -51,9 +56,9 @@ export function RepositoryIssues({
               <FiChevronRight size={20} />
             </a>
           ))}
-          
+
           {totalIssues > registersPerPage && (
-            <Pagination 
+            <Pagination
               totalCountOfRegisters={totalIssues}
               registersPerPage={registersPerPage}
               currentPage={page}
@@ -63,17 +68,19 @@ export function RepositoryIssues({
         </>
       )}
 
-      {page === 1 && isGetRepositoryIssuesLoading && ( 
-        <Wrapper data-testid='repository-issues-loader'>
+      {page === 1 && isGetRepositoryIssuesLoading && (
+        <Wrapper data-testid="repository-issues-loader">
           <Loader />
         </Wrapper>
       )}
 
-      {isGetRepositoryIssuesError && ( 
-        <Wrapper data-testid='repository-issues-error'>
-          <ErrorRetry retryFunction={() => getRepositoryIssues(repositoryName, page)} />
+      {isGetRepositoryIssuesError && (
+        <Wrapper data-testid="repository-issues-error">
+          <ErrorRetry
+            retryFunction={() => getRepositoryIssues(repositoryName, page)}
+          />
         </Wrapper>
       )}
-    </RepositoryIssuesContainer>	
-  )
+    </RepositoryIssuesContainer>
+  );
 }

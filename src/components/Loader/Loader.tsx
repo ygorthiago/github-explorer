@@ -1,7 +1,5 @@
-import { LoaderContainer } from "./styles";
+import { LoaderContainer } from './styles';
 
 export function Loader() {
-  return (
-    <LoaderContainer data-testid="loader" />
-  )
+  return <LoaderContainer data-testid="loader" />;
 }

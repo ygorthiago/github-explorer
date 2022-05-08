@@ -1,4 +1,4 @@
-import { IRepository, IRepositoryIssue } from "../types"
+import { IRepository, IRepositoryIssue } from '../types';
 
 export const mockedRepository: IRepository = {
   full_name: 'repository/test',
@@ -11,8 +11,8 @@ export const mockedRepository: IRepository = {
   owner: {
     login: 'owner',
     avatar_url: 'https://github.com/owner/image.jpg',
-  }
-}
+  },
+};
 
 export const mockedRepositoryIssues: IRepositoryIssue = {
   id: 1,
@@ -21,7 +21,7 @@ export const mockedRepositoryIssues: IRepositoryIssue = {
   user: {
     login: 'owner',
   },
-}
+};
 
 export const mockedRepositoryIssuesWithPR: IRepositoryIssue = {
   id: 2,
@@ -31,7 +31,7 @@ export const mockedRepositoryIssuesWithPR: IRepositoryIssue = {
   user: {
     login: 'owner',
   },
-}
+};
 
 export const mockedRepositoryList: IRepository[] = [
   {
@@ -45,7 +45,7 @@ export const mockedRepositoryList: IRepository[] = [
     owner: {
       login: 'owner',
       avatar_url: 'https://github.com/owner/image.jpg',
-    }
+    },
   },
   {
     full_name: 'repository/test2',
@@ -58,7 +58,7 @@ export const mockedRepositoryList: IRepository[] = [
     owner: {
       login: 'owner',
       avatar_url: 'https://github.com/owner/image.jpg',
-    }
+    },
   },
   {
     full_name: 'repository/test3',
@@ -71,7 +71,7 @@ export const mockedRepositoryList: IRepository[] = [
     owner: {
       login: 'owner',
       avatar_url: 'https://github.com/owner/image.jpg',
-    }
+    },
   },
   {
     full_name: 'repository/test4',
@@ -84,7 +84,7 @@ export const mockedRepositoryList: IRepository[] = [
     owner: {
       login: 'owner',
       avatar_url: 'https://github.com/owner/image.jpg',
-    }
+    },
   },
   {
     full_name: 'repository/test5',
@@ -97,7 +97,7 @@ export const mockedRepositoryList: IRepository[] = [
     owner: {
       login: 'owner',
       avatar_url: 'https://github.com/owner/image.jpg',
-    }
+    },
   },
   {
     full_name: 'repository/test6',
@@ -110,6 +110,6 @@ export const mockedRepositoryList: IRepository[] = [
     owner: {
       login: 'owner',
       avatar_url: 'https://github.com/owner/image.jpg',
-    }
+    },
   },
-]
+];

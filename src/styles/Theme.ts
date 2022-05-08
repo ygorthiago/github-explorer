@@ -8,8 +8,8 @@ const Theme = {
     primaryWhite: '#ffffff',
     primaryRed: '#c53030',
     primaryGreen: '#04d361',
-    background: '#f0f0f5'
-  }
-}
+    background: '#f0f0f5',
+  },
+};
 
-export default Theme
+export default Theme;

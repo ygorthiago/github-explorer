@@ -4,13 +4,15 @@ import '@testing-library/jest-dom';
 
 import { Repository } from '.';
 import { useRepositoriesHook } from '../../hooks/useRepositories';
-import { mockedRepository, mockedRepositoryIssuesWithPR } from '../../mocks/RepositoryMocks';
-
+import {
+  mockedRepository,
+  mockedRepositoryIssuesWithPR,
+} from '../../mocks/RepositoryMocks';
 
 jest.mock('react-router-dom', () => {
   return {
     Link: ({ children }: { children: ReactNode }) => children,
-    useMatch: () => ({ pathname: 'repository/repo/test' })
+    useMatch: () => ({ pathname: 'repository/repo/test' }),
   };
 });
 
@@ -25,14 +27,14 @@ describe('Repository Page', () => {
     getRepositoryReadme: jest.fn(),
     repository: mockedRepository,
     issues: mockedRepositoryIssuesWithPR,
-    readme: "mocked readme",
+    readme: 'mocked readme',
     isGetRepositoryLoading: false,
     isGetRepositoryError: false,
     isGetReadmeLoading: false,
     isGetReadmeError: false,
     isGetRepositoryIssuesError: false,
     isGetRepositoryIssuesLoading: false,
-  }
+  };
 
   beforeEach(() => {
     mockedUseRepositoriesHook.mockReturnValue({
@@ -43,17 +45,17 @@ describe('Repository Page', () => {
   it('should be able to render the repository infos, readme and issues', () => {
     const { getByTestId } = render(<Repository />);
 
-    const repositoryInfo = getByTestId('repository-info')
-    const repositoryReadme = getByTestId('repository-readme')
-    const repositoryIssues = getByTestId('repository-issues')
+    const repositoryInfo = getByTestId('repository-info');
+    const repositoryReadme = getByTestId('repository-readme');
+    const repositoryIssues = getByTestId('repository-issues');
 
-    expect(repositoryInfo).toBeInTheDocument()
-    expect(repositoryReadme).toBeInTheDocument()
-    expect(repositoryIssues).toBeInTheDocument()
+    expect(repositoryInfo).toBeInTheDocument();
+    expect(repositoryReadme).toBeInTheDocument();
+    expect(repositoryIssues).toBeInTheDocument();
   });
 
   it('should be able to retry if some error occurs on getRepository request', () => {
-    const mockedGetRepositoryInfo = jest.fn()
+    const mockedGetRepositoryInfo = jest.fn();
     mockedUseRepositoriesHook.mockReturnValue({
       ...useRepositoriesMockValues,
       getRepository: mockedGetRepositoryInfo,
@@ -63,49 +65,48 @@ describe('Repository Page', () => {
 
     const { getByTestId } = render(<Repository />);
 
-    const repositoryInfoErroRetryButton = getByTestId('retry-button')
+    const repositoryInfoErroRetryButton = getByTestId('retry-button');
 
-    fireEvent.click(repositoryInfoErroRetryButton)
+    fireEvent.click(repositoryInfoErroRetryButton);
 
-    expect(mockedGetRepositoryInfo).toHaveBeenCalled()
+    expect(mockedGetRepositoryInfo).toHaveBeenCalled();
   });
 
   it('should be able to retry if some error occurs on getRepositoryReadme request', () => {
-    const mockedGetRepositoryReadme = jest.fn()
+    const mockedGetRepositoryReadme = jest.fn();
 
     mockedUseRepositoriesHook.mockReturnValue({
       ...useRepositoriesMockValues,
       getRepositoryReadme: mockedGetRepositoryReadme,
-      readme: "",
+      readme: '',
       isGetReadmeError: true,
     });
 
     const { getByTestId } = render(<Repository />);
 
-    const repositoryReadmeErroRetryButton = getByTestId('retry-button')
+    const repositoryReadmeErroRetryButton = getByTestId('retry-button');
 
-    fireEvent.click(repositoryReadmeErroRetryButton)
+    fireEvent.click(repositoryReadmeErroRetryButton);
 
-    expect(mockedGetRepositoryReadme).toHaveBeenCalled()
+    expect(mockedGetRepositoryReadme).toHaveBeenCalled();
   });
 
   it('should be able to retry if some error occurs on getRepository request', () => {
-    const mockedGetRepositoryIssues = jest.fn()
+    const mockedGetRepositoryIssues = jest.fn();
 
     mockedUseRepositoriesHook.mockReturnValue({
       ...useRepositoriesMockValues,
       getRepositoryIssues: mockedGetRepositoryIssues,
       issues: [],
       isGetRepositoryIssuesError: true,
-
     });
 
     const { getByTestId } = render(<Repository />);
 
-    const repositoryIssuesErroRetryButton = getByTestId('retry-button')
+    const repositoryIssuesErroRetryButton = getByTestId('retry-button');
 
-    fireEvent.click(repositoryIssuesErroRetryButton)
+    fireEvent.click(repositoryIssuesErroRetryButton);
 
-    expect(mockedGetRepositoryIssues).toHaveBeenCalled()
+    expect(mockedGetRepositoryIssues).toHaveBeenCalled();
   });
 });

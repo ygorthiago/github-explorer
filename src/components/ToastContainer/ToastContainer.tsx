@@ -1,7 +1,7 @@
 import { useTransition } from 'react-spring';
 import { useToastContext } from '../../contexts/useToastContext';
 
-import * as s from './styles'
+import * as s from './styles';
 import Toast from './Toast/Toast';
 
 export function ToastContainer(): JSX.Element {

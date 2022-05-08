@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 import Theme from '../../styles/Theme';
 
 export const HomeContainer = styled.main`
@@ -8,7 +8,7 @@ export const HomeContainer = styled.main`
   align-items: center;
   width: 100%;
   max-width: 700px;
-`
+`;
 
 export const HomeTitle = styled.h1`
   font-size: 3rem;
@@ -41,7 +41,7 @@ export const SearchRepoForm = styled.form<{
     color: ${Theme.colors.primaryDarkerGray};
     border: 2px solid ${Theme.colors.primaryWhite};
     border-right: 0;
-    
+
     ${props =>
       props.hasError &&
       css`
@@ -55,7 +55,7 @@ export const SearchRepoForm = styled.form<{
 `;
 
 export const SearchButton = styled.button<{
-  isDisabled: boolean
+  isDisabled: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -78,10 +78,10 @@ export const SearchButton = styled.button<{
     cursor: wait;
   }
 
-  @media(min-width: 450px) {
+  @media (min-width: 450px) {
     width: 110px;
   }
-`
+`;
 
 export const SearchError = styled.span`
   display: block;
@@ -100,7 +100,7 @@ export const ClearListWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-`
+`;
 
 export const ClearList = styled.button`
   border: none;
@@ -115,4 +115,4 @@ export const ClearList = styled.button`
   &:hover {
     opacity: 0.8;
   }
-`
+`;

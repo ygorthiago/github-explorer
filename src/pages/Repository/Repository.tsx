@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import { FiChevronLeft } from 'react-icons/fi';
 
@@ -19,29 +19,33 @@ export function Repository() {
     getRepositoryReadme,
     readme,
     isGetReadmeLoading,
-    isGetReadmeError
-  } = useRepositoriesHook()
+    isGetReadmeError,
+  } = useRepositoriesHook();
 
   const match = useMatch('/repository/:repository*');
 
-  const repositoryName = match?.pathname.replace('/repository/', '')!;
+  const repositoryName = match?.pathname.replace('/repository/', '');
+
+  const handleGetRepository = useCallback(() => {
+    if (repositoryName) {
+      getRepository(repositoryName);
+    }
+  }, [getRepository, repositoryName]);
 
   useEffect(() => {
-    if (repositoryName) {
-      getRepository(repositoryName)
-    }
-  }, [repositoryName]);
+    handleGetRepository();
+  }, [getRepository, handleGetRepository, repositoryName]);
 
   useEffect(() => {
     if (repository) {
-      getRepositoryReadme(repositoryName)
+      getRepositoryReadme(repository.full_name);
     }
-  }, [repositoryName, repository]);
+  }, [repositoryName, repository, getRepositoryReadme]);
 
   return (
     <>
       <Header>
-        <Link to="/" data-testid='back-button'>
+        <Link to="/" data-testid="back-button">
           <FiChevronLeft size={16} />
           Go back
         </Link>
@@ -51,7 +55,7 @@ export function Repository() {
         repository={repository}
         isLoading={isGetRepositoryLoading}
         isError={isGetRepositoryError}
-        retryFunction={() => getRepository(repositoryName)}
+        retryFunction={handleGetRepository}
       />
 
       {repository && (
@@ -59,16 +63,16 @@ export function Repository() {
           readme={readme}
           isLoading={isGetReadmeLoading}
           isError={isGetReadmeError}
-          retryFunction={() => getRepositoryReadme(repositoryName)}
+          retryFunction={() => getRepositoryReadme(repository.full_name)}
         />
       )}
 
-      {!!repository?.open_issues_count && !isGetReadmeLoading && (
+      {!!repository?.open_issues_count && (
         <RepositoryIssues
           totalIssues={repository.open_issues_count}
-          repositoryName={repositoryName}
+          repositoryName={repository.full_name}
         />
       )}
     </>
   );
-};
+}

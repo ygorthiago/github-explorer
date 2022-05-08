@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react';
+import { Buffer } from 'buffer';
 import api, { AxiosResponseWithResponseTime } from '../services/api';
 import { IRepositoryIssue, IRepository } from '../types';
-
-import { Buffer } from 'buffer'
 
 export interface IUseRepositoriesHook {
   repository: IRepository | null;
@@ -63,9 +62,9 @@ export function useRepositoriesHook(): IUseRepositoriesHook {
       setIsGetRepositoryLoading(true);
 
       try {
-        const repository = await getRepositoryRequest(repositoryName);
+        const repositoryResponse = await getRepositoryRequest(repositoryName);
 
-        setRepository(repository.data);
+        setRepository(repositoryResponse.data);
       } catch (err) {
         console.error(err);
 
@@ -77,31 +76,34 @@ export function useRepositoriesHook(): IUseRepositoriesHook {
     [getRepositoryRequest],
   );
 
-  const getRepositoryIssues = useCallback(async (repositoryName: string, page: number) => {
-    setIsGetRepositoryIssuesError(false);
-    setIsGetRepositoryIssuesLoading(true);
+  const getRepositoryIssues = useCallback(
+    async (repositoryName: string, page: number) => {
+      setIsGetRepositoryIssuesError(false);
+      setIsGetRepositoryIssuesLoading(true);
 
-    try {
-      const repositoryIssues = await api.get<IRepositoryIssue[]>(
-        `/repos/${repositoryName}/issues`,
-        {
-          params: {
-            page: page,
-            per_page: 10,
-            sort: 'updated-desc',
+      try {
+        const repositoryIssues = await api.get<IRepositoryIssue[]>(
+          `/repos/${repositoryName}/issues`,
+          {
+            params: {
+              page,
+              per_page: 10,
+              sort: 'updated-desc',
+            },
           },
-        },
-      );
+        );
 
-      setIssues(repositoryIssues.data);
-    } catch (err) {
-      console.error(err);
+        setIssues(repositoryIssues.data);
+      } catch (err) {
+        console.error(err);
 
-      setIsGetRepositoryIssuesError(true);
-    } finally {
-      setIsGetRepositoryIssuesLoading(false);
-    }
-  }, []);
+        setIsGetRepositoryIssuesError(true);
+      } finally {
+        setIsGetRepositoryIssuesLoading(false);
+      }
+    },
+    [],
+  );
 
   const getRepositoryReadme = useCallback(async (repositoryName: string) => {
     setIsGetReadmeLoading(true);
@@ -112,7 +114,10 @@ export function useRepositoriesHook(): IUseRepositoriesHook {
         `/repos/${repositoryName}/readme`,
       );
 
-      const decodedReadme = Buffer.from(encodedReadme.data.content, 'base64').toString();
+      const decodedReadme = Buffer.from(
+        encodedReadme.data.content,
+        'base64',
+      ).toString();
 
       const convertedReadme = await api.post(
         'https://api.github.com/markdown',

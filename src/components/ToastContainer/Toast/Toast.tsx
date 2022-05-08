@@ -27,7 +27,7 @@ function Toast({ message, style }: ToastProps): JSX.Element {
       <div>
         <strong>{message.title}</strong>
         {message.description && <p>{message.description}</p>}
-        <p className='date'>{getDateTime()}</p>
+        <p className="date">{getDateTime()}</p>
       </div>
 
       <button
